@@ -1,0 +1,11 @@
+{
+  "name": "autoresearch",
+  "description": "Iterative optimization loop using the Karpathy autoresearch pattern for measurable artifacts.",
+  "version": "1.0.0",
+  "author": {
+    "name": "cbzehner",
+    "email": "chris@cbzehner.com"
+  },
+  "repository": "https://github.com/cbzehner/skill-autoresearch",
+  "license": "MIT"
+}

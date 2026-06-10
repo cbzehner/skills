@@ -1,0 +1,30 @@
+# Eval 2026-06-09: F1 0.92 (6/7 trigger, 5/5 near-miss). The docs/-folder exact-term probe flipped to null in 1/3 re-runs
+# (2/3 correct) — borderline by design, not a description bug. Effective routing is healthy.
+probes:
+  # --- should trigger qmd ---
+  - prompt: "I wrote something a while back about CRDTs vs operational transforms, somewhere in ~/Developer/Personal/vault. Can you dig it up for me?"
+    expected_skills: ["qmd"]
+  - prompt: "Where in our docs/ folder do we mention the handleRetry backoff settings? I need the exact page, the term should appear verbatim."
+    expected_skills: ["qmd"]
+  - prompt: "Pull up my journal entries from March 2026 — they live under journals/2026-03-*.md in my vault."
+    expected_skills: ["qmd"]
+  - prompt: "What have I written about 'performance'? I mean page load times and web vitals, not the team review stuff that's also in there."
+    expected_skills: ["qmd"]
+  - prompt: "I just cloned the company wiki (all .md files) to ~/wiki. Set it up so I can query it locally with semantic matching, then tell me what it says about on-call rotation."
+    expected_skills: ["qmd"]
+  - prompt: "Do I have anything written down about the Restate smoke test env vars? Check both my work writeups and the personal stash, I can't remember which one it landed in."
+    expected_skills: ["qmd"]
+  - prompt: "What does our runbook say about rotating the staging DB credentials? It's all markdown under ops/runbooks somewhere."
+    expected_skills: ["qmd"]
+
+  # --- near misses (adjacent, should NOT trigger qmd) ---
+  - prompt: "What did we decide about Evolver phase 2 last Tuesday? Check the transcripts from my previous Claude runs."
+    expected_skills: ["seance"]
+  - prompt: "Add what we just learned about the flaky CI runner to this repo's durable memory so future sessions don't trip on it again."
+    expected_skills: ["repo-memory"]
+  - prompt: "Get me a well-sourced comparison of Restate vs Temporal durability guarantees — I want citations, not vibes."
+    expected_skills: ["deep-research"]
+  - prompt: "I exported my X bookmarks to bookmarks.json — turn them into categorized insights for the vault."
+    expected_skills: ["twitter-digest"]
+  - prompt: "Where is parseConfig defined in this repo? I think it's somewhere under src/config/."
+    expected_skills: []

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theorist"
+  short_description: "Maintain the evolving theory behind the work"
+  default_prompt: "Use $theorist to update THEORY.MD with the current operating theory and strategy."

@@ -1,0 +1,41 @@
+probes:
+  # --- should trigger: README cleanup ---
+  - prompt: "I had Claude draft the README for restate-pipeline and it's stuffed with 'leverage' and 'seamless' in every paragraph. Go through README.md and fix the wording so it doesn't scream chatbot."
+    expected_skills: ["humanize"]
+  # --- should trigger: email rewrite ---
+  - prompt: "My cold outreach draft in drafts/intro-to-sequoia.md opens with 'I hope this email finds you well' and closes with 'looking forward to connecting'. Rewrite it so it reads like I actually typed it."
+    expected_skills: ["humanize"]
+  # --- should trigger: long-form blog post ---
+  - prompt: "The post at content/posts/2026-06-shipping-evolver.md has that ChatGPT cadence — every paragraph is the same shape and there are em dashes everywhere. Tighten it so it sounds like me."
+    expected_skills: ["humanize"]
+  # --- should trigger: marketing / product copy ---
+  - prompt: "Our landing page copy in site/index.html says 'unlock the full potential' and 'transform the way teams work'. Punch it up so we don't sound like every other startup site."
+    expected_skills: ["humanize"]
+  # --- should trigger: Slack/chat register fix ---
+  - prompt: "I asked GPT to write my weekly status update and it came out way too stiff for our #eng channel. Loosen up notes/status-week23.md so it actually fits Slack."
+    expected_skills: ["humanize"]
+  # --- should trigger: audit-before-rewrite mode ---
+  - prompt: "Before I publish announcement.md, flag every spot where it reads like a bot wrote it. List the problems first — don't rewrite anything yet."
+    expected_skills: ["humanize"]
+  # --- should trigger: technical docs cleanup ---
+  - prompt: "docs/api.md keeps saying 'It's worth noting' and calls everything 'comprehensive'. Strip that out but keep the endpoint descriptions and code samples exactly as they are."
+    expected_skills: ["humanize"]
+
+  # --- near miss: plain proofreading, no skill ---
+  - prompt: "I wrote CONTRIBUTING.md in a hurry last night — can you fix the typos and grammar mistakes?"
+    expected_skills: []
+  # --- near miss: docs accuracy review -> review ---
+  - prompt: "Check whether docs/architecture.md still matches what the code actually does after the queue migration, and call out anything stale."
+    expected_skills: ["review"]
+  # --- near miss: UX microcopy / content design -> design ---
+  - prompt: "Users keep getting confused by the button labels in our onboarding flow. Help me rework the microcopy so the next step is obvious."
+    expected_skills: ["design"]
+  # --- near miss: skill frontmatter tuning -> create-skill ---
+  - prompt: "My new vault-sync skill never gets picked up — can you rework its description and frontmatter so the router actually selects it?"
+    expected_skills: ["create-skill"]
+  # --- near miss: code cleanup, not prose -> simplify ---
+  - prompt: "src/parser.ts got really convoluted after the last refactor. Clean it up so it's easier to follow."
+    expected_skills: ["simplify"]
+  # --- near miss: on-site architecture explainer -> how-it-works ---
+  - prompt: "I want a page on my blog that walks readers through how the job scheduler works internally, with diagrams that match the site's style."
+    expected_skills: ["how-it-works"]

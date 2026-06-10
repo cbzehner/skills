@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize"
+  short_description: "Rewrite or audit prose so it sounds natural in the right register"
+  default_prompt: "Use $humanize to rewrite this text so it sounds clearer, more natural, and less machine-written."

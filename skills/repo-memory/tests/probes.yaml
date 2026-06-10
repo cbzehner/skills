@@ -1,0 +1,41 @@
+probes:
+  # Trigger: operational gotcha worth persisting (runbook family)
+  - prompt: "Every new session I have to re-explain that you need `docker compose -f infra/dev.yml up` before the integration tests pass in acme-api. Can you stash that somewhere repo-local so next time you just know?"
+    expected_skills: ["repo-memory"]
+  # Trigger: capture current root-cause thesis (theory family)
+  - prompt: "We finally figured out the flaky checkout test is clock skew, not a race condition. Write down our current thinking on the root cause in this repo so a fresh session doesn't re-litigate it."
+    expected_skills: ["repo-memory"]
+  # Trigger: lesson from a repeated mistake (learning family)
+  - prompt: "That's the third time we've been burned by sqlx prepared statement caching in CI on this project. Capture that lesson somewhere so we stop repeating it."
+    expected_skills: ["repo-memory"]
+  # Trigger: prune stale notes (audit family)
+  - prompt: "The notes under .claude/memory in the evolver repo are getting crufty — half of them still reference the Postgres setup we dropped in March. Go through them and clear out whatever no longer applies."
+    expected_skills: ["repo-memory"]
+  # Trigger: consult saved repo notes before starting (recall family)
+  - prompt: "Before we touch the deploy, check whether past-us left any notes in this repo about the fly.io config — I think there were a couple of gotchas with secrets staging."
+    expected_skills: ["repo-memory"]
+  # Trigger: end-of-session distillation for future sessions
+  - prompt: "Good stopping point. What from today's work on restate-smoke-test is worth keeping around so the next session doesn't start from zero?"
+    expected_skills: ["repo-memory"]
+  # Trigger: record a stable project fact (runbook/durable-fact family)
+  - prompt: "Jot down in this repo that the staging seed script is scripts/seed.ts and needs NODE_ENV=staging, so nobody has to hunt for that again."
+    expected_skills: ["repo-memory"]
+
+  # Near-miss: transcript/session-history search -> seance
+  - prompt: "Dig through our past sessions in this repo and find the one where we fixed the websocket reconnect bug — I want to see exactly which commands we ran."
+    expected_skills: ["seance"]
+  # Near-miss: searching a notes vault -> qmd
+  - prompt: "Search my notes vault for anything I wrote about Restate retry semantics last quarter."
+    expected_skills: ["qmd"]
+  # Near-miss: glossary / vocabulary alignment -> domain-model
+  - prompt: "In billing-svc the words 'account' and 'workspace' get used interchangeably across docs and code. Can you pin down the vocabulary and produce a glossary?"
+    expected_skills: ["domain-model"]
+  # Near-miss: portable prompt for another agent -> handoff
+  - prompt: "Write me a prompt I can paste into a fresh session so another agent can pick up this half-finished migration cold."
+    expected_skills: ["handoff"]
+  # Near-miss: future work should become a plan, not a note -> plan
+  - prompt: "We keep saying we should rip out the auth middleware in gateway/. Turn that into a real plan with acceptance criteria instead of letting it float."
+    expected_skills: ["plan"]
+  # Near-miss: editing standing agent instructions, not curated notes -> no skill
+  - prompt: "Add a line to CLAUDE.md telling agents to always run pnpm lint before committing in this repo."
+    expected_skills: []

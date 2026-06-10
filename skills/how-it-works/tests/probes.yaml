@@ -1,0 +1,56 @@
+probes:
+  # --- should trigger ---
+
+  # Family: add an explainer page to an existing same-repo SSG site
+  - prompt: "My blog at ~/sites/tidelog is a Zola site. I want to add a page to it that walks readers through the internals — the hourly cron, the KV cache layer, the PDF parsing — with diagrams that match my existing theme, not some generic doc."
+    expected_skills: ["how-it-works"]
+
+  # Family: pre-launch shareable page for Hacker News
+  - prompt: "I'm planning to post swimboard on Hacker News next week. Before I do, can you build a long single page on the site that tours the codebase — the scheduler, the rate limiter, the snapshot store — something engineers will actually scroll through and upvote?"
+    expected_skills: ["how-it-works"]
+
+  # Family: standalone single-file deliverable for a repo with no website
+  - prompt: "restate-pipeline is a backend service with no website at all. Make me one self-contained HTML file I can commit to the repo that documents the queue, retry, and checkpoint mechanisms with diagrams, so I can just link people to it."
+    expected_skills: ["how-it-works"]
+
+  # Family: durable linkable artifact replacing repeated verbal explanations
+  - prompt: "Every time someone new joins I end up re-explaining the rendering engine in ~/Developer/canvaskit by hand. I'd rather have one polished page I can send a link to that covers the frame scheduler, the dirty-rect tracker, and the glyph cache with real code snippets."
+    expected_skills: ["how-it-works"]
+
+  # Family: public build-in-progress chronicle page on the site
+  - prompt: "I've been building evolver in public and people keep asking about the guts. Add a page to my Astro site that chronicles the interesting parts of the build — the genome encoder, the fitness loop — with code samples tied to the actual commits they shipped in."
+    expected_skills: ["how-it-works"]
+
+  # Family: deep-dive page with diagrams, TOC, and annotated code on a JS-framework site
+  - prompt: "My Next.js portfolio needs a deep-dive page about the recommendation engine under the hood. I want a diagram per subsystem in my site's color scheme, short annotated code excerpts, and a table of contents that follows you as you scroll."
+    expected_skills: ["how-it-works"]
+
+  # Family: turn an internal system into an on-site page for the team
+  - prompt: "Our billing reconciler in ~/work/ledgerd confuses everyone. Put together a page on the internal Hugo docs site that lays out each moving piece — the matcher, the dispute queue, the nightly sweep — visually, in the same style as the rest of that site."
+    expected_skills: ["how-it-works"]
+
+  # --- near misses ---
+
+  # README/contributing guide belongs in the repo, not the site — explicit non-trigger
+  - prompt: "Write a proper README for restate-pipeline: setup steps, env vars, a short overview of the moving parts, and how to run the tests, so contributors can get going."
+    expected_skills: []
+
+  # API reference docs — generated tooling territory, explicit non-trigger
+  - prompt: "Generate reference docs for my TypeScript library exportkit — every public function with its params, return types, and a usage example. TypeDoc output is fine."
+    expected_skills: []
+
+  # Conversational code explanation, no artifact wanted
+  - prompt: "Can you walk me through src/middleware/auth.ts in this repo? Just explain the token refresh flow to me here in chat, I don't need anything written up."
+    expected_skills: []
+
+  # Existing draft needs a de-robotization pass — routes to humanize
+  - prompt: "I drafted an internal doc about our caching setup in docs/cache-overview.md but it reads stiff and robotic, like a press release. Clean it up so it sounds like I actually wrote it."
+    expected_skills: ["humanize"]
+
+  # Vocabulary/glossary alignment across docs and code — routes to domain-model
+  - prompt: "In ~/work/storefront-api the terms 'order', 'cart', and 'checkout' get used interchangeably across the docs and the code. Audit where they conflict and pin down a consistent glossary."
+    expected_skills: ["domain-model"]
+
+  # Blog post in Markdown, not an on-site page — explicit non-trigger
+  - prompt: "Draft a Markdown blog post for my dev.to account about the week I spent chasing the KV race condition in tidelog — narrative style, maybe 1200 words."
+    expected_skills: []

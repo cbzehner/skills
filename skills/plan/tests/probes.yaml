@@ -1,0 +1,29 @@
+probes:
+  # --- should trigger: plan ---
+  - prompt: "I have a rough idea for a CLI that manages my homelab nix configs but I haven't figured out what it actually needs to do yet. Ask me questions one at a time until we nail it down."
+    expected_skills: ["plan"]
+  - prompt: "Take my notes in docs/ideas/billing-revamp.md and turn them into a proper spec I can file as a GitHub issue for the team to weigh in on."
+    expected_skills: ["plan"]
+  - prompt: "The referral-program PRD is in issue #482. Break it down into phases a coding agent could work through one at a time."
+    expected_skills: ["plan"]
+  - prompt: "Linear ticket ENG-1432 describes the export-to-CSV feature. Turn it into a step-by-step build plan I can hand to a fresh coding session."
+    expected_skills: ["plan"]
+  - prompt: "Write up a plan file for the dark-mode work under plans/ so tomorrow's session can pick it up where we leave off."
+    expected_skills: ["plan"]
+  - prompt: "I want to add some kind of admin dashboard to vaultkeeper but I'm fuzzy on who'd actually use it and for what. Before you write any code, help me pin down what we're building."
+    expected_skills: ["plan"]
+  - prompt: "Before we touch any code on the notifications rework, let's get the goals, user flows, and what done looks like written down in a doc."
+    expected_skills: ["plan"]
+  # --- near misses: should route elsewhere ---
+  - prompt: "I've already got a plan for the db migration in plans/db-migration.md and I'm pretty happy with it — tear it apart and tell me where it'll blow up in production."
+    expected_skills: ["counsel"]
+  - prompt: "Not sure duckdb-wasm can even handle a 2GB parquet file in the browser. Throw together a quick throwaway test so we know before committing to this approach."
+    expected_skills: ["spike"]
+  - prompt: "Can you go over plans/checkout-v2.md against the original spec and flag anything that's missing or contradictory?"
+    expected_skills: ["review"]
+  - prompt: "The terms account, wallet, and ledger are used interchangeably across our docs and models. Build a glossary and straighten that out."
+    expected_skills: ["domain-model"]
+  - prompt: "I keep doing this same release-notes workflow every Friday. Turn it into a reusable slash command I can run."
+    expected_skills: ["create-skill"]
+  - prompt: "Write me a prompt I can paste into a fresh session so another agent can continue the auth refactor from where we are."
+    expected_skills: ["handoff"]

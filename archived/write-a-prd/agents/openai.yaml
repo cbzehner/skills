@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write a PRD"
+  short_description: "Interview, explore, sketch deep modules, and file a Product Requirements Document"
+  default_prompt: "Use $write-a-prd to draft a PRD for this feature, walking the decision tree before writing."

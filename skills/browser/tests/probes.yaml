@@ -1,0 +1,30 @@
+# Eval 2026-06-09: F1 0.93 (7/7 trigger, 4/5 near-miss). near-miss "Summarize the main points of https://martinfowler.com/..."
+# false-positives to browser at ~2/3 across re-runs — borderline by design: listing had no fetch tool; in the live environment
+# obsidian:defuddle claims read-a-URL tasks. Note the rate, don't chase with description edits.
+probes:
+  # --- should trigger ---
+  - prompt: "Can you grab an image of how the pricing page at https://staging.acme.dev/pricing renders right now? I want to drop it in the Slack thread."
+    expected_skills: ["browser"]
+  - prompt: "Pull every job listing off https://jobs.lever.co/anthropic into a CSV with title, team, and location columns."
+    expected_skills: ["browser"]
+  - prompt: "Go to localhost:3000/signup, enter a throwaway email and password, submit the form, and tell me if the confirmation step actually appears."
+    expected_skills: ["browser"]
+  - prompt: "When I open the settings modal on the dashboard at localhost:5173 something throws a red error in the dev console — can you reproduce it and figure out what's failing on the page?"
+    expected_skills: ["browser"]
+  - prompt: "I changed the nav CSS on feature/nav-redesign — show me side by side how the header renders on that branch versus main."
+    expected_skills: ["browser"]
+  - prompt: "Is https://my-personal-site.dev actually serving the new about section? Load it and confirm the updated bio text shows up."
+    expected_skills: ["browser"]
+  - prompt: "Record a short clip of the checkout flow on localhost:4000 going from cart through payment so I can attach it to the Linear ticket."
+    expected_skills: ["browser"]
+  # --- near misses ---
+  - prompt: "Verify my fix on the feature/rate-limit branch actually works before I push it up."
+    expected_skills: ["verify"]
+  - prompt: "Spin up the dev server for ~/Developer/Personal/vault-site so I can poke around in it myself."
+    expected_skills: ["run"]
+  - prompt: "Write a Playwright spec covering the password-reset flow and put it in tests/e2e/reset.spec.ts."
+    expected_skills: []
+  - prompt: "Summarize the main points of https://martinfowler.com/articles/exploring-gen-ai.html for me."
+    expected_skills: []
+  - prompt: "Do a deep dive comparing the current headless automation frameworks and give me a cited writeup on which one to standardize on."
+    expected_skills: ["deep-research"]

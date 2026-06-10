@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser"
+  short_description: "Open, inspect, test, scrape, or screenshot web pages"
+  default_prompt: "Use $browser to inspect this page with the best available browser automation tool and report the results."

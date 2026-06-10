@@ -1,0 +1,4 @@
+interface:
+  display_name: "How It Works"
+  short_description: "Build an on-site architecture explainer page"
+  default_prompt: "Use $how-it-works to build a polished /how-it-works page for this codebase in the site's own visual style."

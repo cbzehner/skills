@@ -1,0 +1,4 @@
+interface:
+  display_name: "Innovate"
+  short_description: "Find one high-leverage addition to a plan"
+  default_prompt: "Use $innovate to find the single highest-leverage addition to this plan or project."

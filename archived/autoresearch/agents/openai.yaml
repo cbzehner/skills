@@ -1,0 +1,4 @@
+interface:
+  display_name: "Autoresearch"
+  short_description: "Iteratively improve a measurable artifact"
+  default_prompt: "Use $autoresearch to iteratively improve this measurable artifact with tight evaluation loops."

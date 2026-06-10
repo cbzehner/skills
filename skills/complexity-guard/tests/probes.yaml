@@ -1,0 +1,40 @@
+# Eval 2026-06-09 baseline: F1 0.92 — diff-sweep trigger lost to the simplify plugin 3/3.
+# Post description fix ('Owns overengineering sweeps' + sweep vocabulary): F1 1.00, recovered 3/3; near-misses still route to code-review/git/review correctly.
+probes:
+  # --- should trigger: sweep of a working diff ---
+  - prompt: "Take a pass over my working tree diff — I think the new caching layer in src/cache/ is way more machinery than we need yet. Cut whatever isn't pulling its weight."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: reviewing a change that adds speculative abstraction ---
+  - prompt: "My teammate's PR adds a generic event bus, two abstract base classes, and a YAML config format just to send a single webhook. Is all of that earned? Tell me what to push back on."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: bloat audit of a named codebase area ---
+  - prompt: "Do a bloat audit of lib/feature_flags/ — half those options were added 'for later' and I doubt anything actually reads them."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: planning architecture with YAGNI concerns ---
+  - prompt: "I'm sketching the architecture for our notifications service in docs/notifications-design.md. Sanity check it — I don't want us building speculative machinery before there's a single real consumer."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: writing new code under a keep-it-boring constraint ---
+  - prompt: "Add pagination to the /api/contacts endpoint in server/routes/contacts.go. Keep it boring — match how the orders endpoint already does it, no new helpers unless something genuinely needs one."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: removing defensive handling the schema already owns ---
+  - prompt: "payments/processor.py wraps everything in nested try/except even though the schema guarantees those fields exist. Go through and strip out the guards that can't actually fire."
+    expected_skills: ["complexity-guard"]
+  # --- should trigger: trimming layers from own recent code ---
+  - prompt: "The retry logic in apps/sync/src/uploader.ts has grown to three layers of wrappers around one fetch call. Flatten it down to the smallest version that still behaves the same."
+    expected_skills: ["complexity-guard"]
+
+  # --- near miss: bug-hunting review of a diff -> code-review ---
+  - prompt: "Look over my current diff for bugs before I push — I'm mostly worried about an off-by-one in the date range filter in reports/range.py."
+    expected_skills: ["code-review"]
+  # --- near miss: failing tests after upgrade -> diagnose ---
+  - prompt: "Tests in test_invoice.py started failing after I bumped SQLAlchemy to 2.1 — help me figure out the root cause."
+    expected_skills: ["diagnose"]
+  # --- near miss: security-lens review -> review ---
+  - prompt: "Run a security review on the auth changes in my branch — I touched session handling in middleware/session.rb."
+    expected_skills: ["review"]
+  # --- near miss: 'clean up' that is git history, not code -> git ---
+  - prompt: "My branch is a mess of WIP commits — clean up the history into a few logical commits before I open the PR."
+    expected_skills: ["git"]
+  # --- near miss: comparing two designs adversarially -> counsel ---
+  - prompt: "I've got two approaches for cache invalidation written up in notes/cache-options.md — run an adversarial critique and tell me which one holds up."
+    expected_skills: ["counsel"]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ralph"
+  short_description: "Execute plan files in reviewed implementation loops"
+  default_prompt: "Use $ralph to execute this plan file in verified chunks with review checkpoints."

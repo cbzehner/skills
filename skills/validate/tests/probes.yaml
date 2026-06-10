@@ -1,0 +1,43 @@
+# Eval 2026-06-09 baseline: F1 0.83 — both 'make sure my fix works' triggers lost to the verify plugin 3/3.
+# Post description fix (evidence/verdict vocabulary + boundary): F1 1.00, recovered 3/3; hand-test near-miss still correctly routes to verify.
+probes:
+  # --- should trigger: post-implementation completion check ---
+  - prompt: "I just finished wiring up the rate limiter in api/middleware/throttle.ts. Before I move on, can you make sure it actually does what the ticket says and show me exactly what you ran?"
+    expected_skills: ["validate"]
+  # --- should trigger: bug fix with both-sides evidence ---
+  - prompt: "I think I fixed the off-by-one in the invoices pagination. Can you show the old behavior was actually broken first, then that my change fixes it? I want the commands as receipts."
+    expected_skills: ["validate"]
+  # --- should trigger: plan/done-criteria check against a branch ---
+  - prompt: "Go through plans/checkout-v2.md and tell me which items in the Done section this branch actually satisfies right now. Receipts for each one, please."
+    expected_skills: ["validate"]
+  # --- should trigger: migration check without delivery ---
+  - prompt: "Before I hand this off, check that the 20260605_add_tenant_id migration applies cleanly to a fresh dev database and that the down direction works too. Don't merge or push anything."
+    expected_skills: ["validate"]
+  # --- should trigger: UI change evidence with screenshots, no delivery ---
+  - prompt: "The settings page redesign is sitting on this branch. Before I call it finished, check nothing broke visually on mobile and keep whatever proof you collect — no PR yet."
+    expected_skills: ["validate"]
+  # --- should trigger: release branch go/no-go rundown ---
+  - prompt: "We cut release/2.9 yesterday. Give me a pass/fail rundown on whether it's actually good to go — tests, build, smoke checks — but don't tag or push anything."
+    expected_skills: ["validate"]
+  # --- should trigger: working-tree diff doneness check ---
+  - prompt: "Here's my working tree after the auth refactor. Run whatever this repo expects — tests, typecheck, lint — and tell me honestly whether it's safe to call this done and what you skipped."
+    expected_skills: ["validate"]
+
+  # --- near miss: manual hands-on app testing of a PR -> verify ---
+  - prompt: "Can you verify PR #482 actually works? Start the app and try the dark mode toggle by hand."
+    expected_skills: ["verify"]
+  # --- near miss: unexplained failures, root-causing -> diagnose ---
+  - prompt: "The integration tests on feature/payments started failing after my rebase and I have no idea why. Can you figure out what's going on?"
+    expected_skills: ["diagnose"]
+  # --- near miss: lens-based critique of a diff -> review ---
+  - prompt: "Do a security-focused review of the diff on feature/sso before I send it to the team."
+    expected_skills: ["review"]
+  # --- near miss: done work, deliver it -> finish-task ---
+  - prompt: "The caching work is done and tests pass — wrap it up and get the PR open."
+    expected_skills: ["finish-task"]
+  # --- near miss: requirements unclear, define done first -> plan ---
+  - prompt: "I want to add multi-region support to the deploy pipeline but I'm honestly not sure what the requirements are. Help me figure out what done even looks like before we build anything."
+    expected_skills: ["plan"]
+  # --- near miss: plain screenshot errand, no doneness question -> browser ---
+  - prompt: "Open localhost:3000 in Chrome and grab a screenshot of the pricing page so I can drop it in Slack."
+    expected_skills: ["browser"]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD to Plan"
+  short_description: "Convert a PRD into ralph-compatible phased plan with tracer-bullet vertical slices"
+  default_prompt: "Use $prd-to-plan to break this PRD into vertical slices saved to ./plans/."

@@ -1,0 +1,52 @@
+probes:
+  # --- should trigger ---
+
+  # Family: fresh-session continuation (out of context, resume tomorrow)
+  - prompt: "I'm almost out of context here. Put together something I can paste into a brand new session tomorrow morning to keep going on the stripe webhook retry fix in billing-service."
+    expected_skills: ["handoff"]
+
+  # Family: switching to a different model/tool mid-task
+  - prompt: "I want Codex to take a crack at the flaky reconciliation test in payments instead. Write up what it needs to know so I can drop it straight into a Codex window."
+    expected_skills: ["handoff"]
+
+  # Family: teammate picks up the work in their own session
+  - prompt: "Dana is taking over the rate-limiter work in api-gateway. Draft something she can paste into her own Claude session — she hasn't seen any of this conversation."
+    expected_skills: ["handoff"]
+
+  # Family: overnight/unattended harness run
+  - prompt: "Set something up for the overnight runner to chew on the UUID migration for the users table in acme/billing-api. It runs unattended and knows nothing about today's discussion."
+    expected_skills: ["handoff"]
+
+  # Family: clipboard-ready, checkout-independent capture before stopping
+  - prompt: "Before I close this laptop, capture the OAuth scope bug we found in our notify-worker repo as something copy-pasteable that a totally cold agent could run with — no references to my local checkout."
+    expected_skills: ["handoff"]
+
+  # Family: downshifting remaining work to a cheaper model in a new window
+  - prompt: "The rest of this parser cleanup in skill-cleaner doesn't need Opus. Write up the remaining work so I can feed it to a cheaper model in a fresh window."
+    expected_skills: ["handoff"]
+
+  # --- near misses ---
+
+  # Wants a durable planning artifact, not a paste-ready brief
+  - prompt: "Turn this discussion about the notifications redesign into a proper planning doc with acceptance criteria before we start building anything."
+    expected_skills: ["plan"]
+
+  # Wants a second opinion / adversarial critique from another model, not to transfer the work
+  - prompt: "Before I commit to this caching approach, run it past another model and have it poke holes in the design."
+    expected_skills: ["counsel"]
+
+  # Wants to resume from past session history, not produce a brief for someone else
+  - prompt: "Pick up where I left off — dig up what we were doing in last week's session on the vault importer and continue it."
+    expected_skills: ["seance"]
+
+  # Wants the current work shipped, not transferred
+  - prompt: "I think we're done with the retry feature — wrap this up and get a PR open from this worktree."
+    expected_skills: ["finish-task"]
+
+  # Wants a reusable automation out of a recurring prompt pattern, not a one-off brief
+  - prompt: "I keep typing the same kickoff instructions every time I start work in a new repo. Turn that into a reusable slash command I can run."
+    expected_skills: ["create-skill"]
+
+  # Just wants a human-facing summary written, no agent involved
+  - prompt: "Summarize what we changed in this session into a PR description for acme/ingest-service#412."
+    expected_skills: []

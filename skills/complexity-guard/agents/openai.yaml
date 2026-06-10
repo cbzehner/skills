@@ -1,0 +1,4 @@
+interface:
+  display_name: "Complexity Guard"
+  short_description: "Prevent overengineering and preserve local patterns"
+  default_prompt: "Use $complexity-guard to review this code or plan for overengineering, unnecessary abstractions, and simpler local alternatives."

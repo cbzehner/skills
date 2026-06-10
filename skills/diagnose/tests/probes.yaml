@@ -1,0 +1,38 @@
+probes:
+  # --- should trigger: failing test with confusing error ---
+  - prompt: "npm test just started failing on auth.spec.ts with 'TypeError: Cannot read properties of undefined (reading token)' and the auth code looks fine to me — can you figure out what's actually going on and fix it?"
+    expected_skills: ["diagnose"]
+  # --- should trigger: silent behavioral regression, cause unknown ---
+  - prompt: "The CSV export in reports/exporter.py used to include the totals row, and sometime in the last week it stopped. Nothing in the exporter itself changed as far as I can tell."
+    expected_skills: ["diagnose"]
+  # --- should trigger: cryptic runtime error with no leads ---
+  - prompt: "I keep getting ECONNRESET when the worker container talks to redis in docker-compose, no stack trace beyond that one line. I have no idea where to even start looking."
+    expected_skills: ["diagnose"]
+  # --- should trigger: stuck on environment-specific hang ---
+  - prompt: "The build hangs forever at 'Compiling tailwind...' on my laptop but finishes fine in CI. I've been stuck on this for an hour, help me get unstuck."
+    expected_skills: ["diagnose"]
+  # --- should trigger: flaky/intermittent CI failure ---
+  - prompt: "tests/integration/test_billing.py passes locally every time but fails maybe 1 in 3 CI runs with a timeout. Can you get to the bottom of why it's flaky?"
+    expected_skills: ["diagnose"]
+  # --- should trigger: crash on specific input, wants cause found and fixed ---
+  - prompt: "The rust service panics with 'index out of bounds' somewhere in src/parser.rs whenever I feed it fixtures/sample-3.json. Find out why and patch it."
+    expected_skills: ["diagnose"]
+  # --- should trigger: wrong output, suspect data shape, cause unknown ---
+  - prompt: "Orders placed after midnight UTC show up with yesterday's date on the dashboard. I suspect a timezone thing in api/orders.ts but I'm honestly guessing — can you track down where it goes wrong?"
+    expected_skills: ["diagnose"]
+
+  # --- near miss: wants commit-history bisection, not failure analysis ---
+  - prompt: "Dark mode broke somewhere between v2.3 and v2.4. Can you bisect the commits to pin down which one did it?"
+    expected_skills: ["git"]
+  # --- near miss: fix already made, wants it confirmed by running the app ---
+  - prompt: "I already fixed the login redirect loop in middleware.ts — run the app and make sure the fix actually works before I push."
+    expected_skills: ["verify"]
+  # --- near miss: feasibility unknown, wants throwaway experiment not bug hunt ---
+  - prompt: "Not sure duckdb can chew through our 10GB parquet files fast enough. Throw together a quick disposable experiment before we commit to it."
+    expected_skills: ["spike"]
+  # --- near miss: hunting for bugs in a diff, not an observed failure ---
+  - prompt: "Before I open the PR, look over my current diff for any correctness bugs I might have missed."
+    expected_skills: ["code-review"]
+  # --- near miss: recalling how a past session handled the same symptom ---
+  - prompt: "I'm pretty sure we hit this exact elasticsearch timeout in a session a few weeks ago. Check what we did back then before we redo the work."
+    expected_skills: ["seance"]

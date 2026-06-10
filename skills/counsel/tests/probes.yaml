@@ -1,0 +1,41 @@
+probes:
+  # --- should trigger: interview mode (one-question-at-a-time probing of a draft) ---
+  - prompt: "I just finished drafting plans/auth-migration.md. Before I touch any code, quiz me about each choice in it one by one — I want to make sure I can defend every decision."
+    expected_skills: ["counsel"]
+  # --- should trigger: premortem / failure-mode stress test of a proposal ---
+  - prompt: "Imagine it's December and our move to event-sourcing for the orders service blew up in our faces. Work backwards from the wreckage — what killed it? The proposal is in docs/event-sourcing.md."
+    expected_skills: ["counsel"]
+  # --- should trigger: blunt honest verdict on a direction ---
+  - prompt: "Be straight with me — is rewriting the ingest pipeline in Rust actually worth it, or am I just bored of the Python codebase? Don't sugarcoat it."
+    expected_skills: ["counsel"]
+  # --- should trigger: external models weighing in on a decision ---
+  - prompt: "This caching decision is big enough that I don't want only your take. Loop in gemini and codex on whether the feed service should use Redis or an in-process LRU, then tell me where everyone lands."
+    expected_skills: ["counsel"]
+  # --- should trigger: synthesizing competing plans into a hybrid ---
+  - prompt: "I've got two rival writeups for the notifications revamp, plans/notif-a.md and plans/notif-b.md. Get a few different opinions on which parts of each to keep and stitch together the best version."
+    expected_skills: ["counsel"]
+  # --- should trigger: one bold idea on top of a finished plan ---
+  - prompt: "The roadmap in PLAN.md for the analytics dashboard feels solid and basically done. What's the single boldest thing I could bolt on that would make it dramatically better?"
+    expected_skills: ["counsel"]
+  # --- should trigger: second opinion before an irreversible step ---
+  - prompt: "Before I run this migration against prod, ask the other models for a sanity check on the schema change in db/migrations/0042_split_accounts.sql."
+    expected_skills: ["counsel"]
+
+  # --- near-miss: requirements from scratch, no draft exists -> plan ---
+  - prompt: "I want to build a CLI that syncs my Obsidian vault to S3 but I haven't figured out the requirements yet — help me work out what it should actually do and write it up as something durable."
+    expected_skills: ["plan"]
+  # --- near-miss: skeptical findings against a concrete diff -> review ---
+  - prompt: "Take a hard, skeptical look at the diff on my feature/rate-limiter branch and tell me everything that's wrong with it."
+    expected_skills: ["review"]
+  # --- near-miss: unexplained failure needing root cause -> diagnose ---
+  - prompt: "Orders are intermittently double-charging in staging and I can't figure out why. Help me get to the bottom of it."
+    expected_skills: ["diagnose"]
+  # --- near-miss: feasibility unknown, wants a throwaway experiment -> spike ---
+  - prompt: "Not sure DuckDB can chew through our 50GB of parquet fast enough — can we hack together a quick disposable test before we commit to anything?"
+    expected_skills: ["spike"]
+  # --- near-miss: multi-source sourced comparison report -> deep-research ---
+  - prompt: "Compare the major vector database options on pricing and operational burden and give me a cited writeup I can share with the team."
+    expected_skills: ["deep-research"]
+  # --- near-miss: recalling a past decision from session history -> seance ---
+  - prompt: "Didn't we already hash out Redis vs Memcached in another session a few weeks back? Dig up what we decided and why."
+    expected_skills: ["seance"]

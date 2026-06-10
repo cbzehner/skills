@@ -1,0 +1,49 @@
+probes:
+  # --- should trigger: critique (existing screen review) ---
+  - prompt: "The checkout page on our store feels off and users keep bailing at the payment step. Can you look at app/views/checkout/show.html.erb and tell me what's wrong with it and what to fix first?"
+    expected_skills: ["design"]
+  # --- should trigger: visual (layout/typography/spacing) ---
+  - prompt: "Our pricing page looks cluttered and kind of cheap — src/pages/pricing.astro. Can you make it cleaner and more professional without rebuilding the whole thing?"
+    expected_skills: ["design"]
+  # --- should trigger: ux-flow (screens, states, recovery) ---
+  - prompt: "I'm adding team invites to InviteHQ. Walk me through what screens and states the invite-a-teammate experience needs — entry point, validation errors, what happens after someone accepts, all of it."
+    expected_skills: ["design"]
+  # --- should trigger: accessibility (keyboard, screen reader, labels) ---
+  - prompt: "Can someone using only a keyboard actually get through the signup form in components/SignupForm.tsx? I'm also worried it reads badly with VoiceOver — check the labels and focus handling."
+    expected_skills: ["design"]
+  # --- should trigger: content (errors, empty states, microcopy) ---
+  - prompt: "Every failure in our billing area just says 'Something went wrong'. Help me rewrite the error messages and empty states in app/views/billing so people actually know what to do next."
+    expected_skills: ["design"]
+  # --- should trigger: information architecture (nav, page structure) ---
+  - prompt: "Nobody can find anything on our docs site — the sidebar has like 40 top-level links. Help me reorganize the menus and page structure so the API reference and guides are actually findable."
+    expected_skills: ["design"]
+  # --- should trigger: static-html (single-file mockup) ---
+  - prompt: "Mock up the account settings page for the new admin area as one HTML file with plain CSS — I just want to open it in a browser and react to it, no frameworks or build step."
+    expected_skills: ["design"]
+  # --- should trigger: precedent (reference study, taste-building) ---
+  - prompt: "Our analytics dashboard looks like every generic SaaS admin panel. Show me examples of admin consoles that handle dense data well and break down what they're doing that we could learn from."
+    expected_skills: ["design"]
+  # --- should trigger: language (DESIGN.md extraction for consistency) ---
+  - prompt: "Before we add more screens to the Rails app, write a DESIGN.md that captures the typography, spacing, and button conventions we're already using so new pages stay consistent."
+    expected_skills: ["design"]
+  # --- should trigger: service (end-to-end journey, frontstage/backstage) ---
+  - prompt: "I'm mapping out how refunds work end to end for our marketplace — what the customer sees, what support does behind the scenes, and where requests get dropped between teams. Help me chart that out."
+    expected_skills: ["design"]
+  # --- near miss: wants browser automation/screenshot, not guidance ---
+  - prompt: "Open localhost:3000 in Chrome and grab a screenshot of the new navbar at mobile width so I can see how it rendered."
+    expected_skills: ["browser"]
+  # --- near miss: lensed review of a diff/branch ---
+  - prompt: "I just finished the nav redesign on branch feature/new-nav — review the diff with an accessibility lens before I open the PR."
+    expected_skills: ["review"]
+  # --- near miss: tool ergonomics for AI agents, not human UI ---
+  - prompt: "I'm building a CLI that Claude and other coding agents will call — help me figure out the output format and flags so agents can parse results reliably."
+    expected_skills: ["agent-ergonomic-design"]
+  # --- near miss: product direction is missing, needs intent clarification ---
+  - prompt: "I want to build some kind of habit tracker but I haven't figured out who it's for or what it should actually do yet — help me nail that down before anything else."
+    expected_skills: ["plan"]
+  # --- near miss: vocabulary alignment, not UI work ---
+  - prompt: "Our codebase uses 'project', 'workspace', and 'org' interchangeably and the docs contradict the models — help me straighten out the vocabulary and write it down."
+    expected_skills: ["domain-model"]
+  # --- near miss: throwaway feasibility experiment, not a design artifact ---
+  - prompt: "Not sure CSS grid can even pull off the masonry layout we want for the gallery — throw together a quick disposable test so we know it's feasible before we plan the feature."
+    expected_skills: ["spike"]

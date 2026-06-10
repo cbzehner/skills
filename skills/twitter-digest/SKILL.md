@@ -1,0 +1,115 @@
+---
+name: twitter-digest
+description: Process Twitter/X bookmark exports into categorized vault insights. Use for bookmarks, saved tweets, Twitter digest, or social media knowledge extraction.
+argument-hint: "[path to export file]"
+arguments:
+  - export_path
+license: MIT
+effort: medium
+allowed-tools: Bash Read Write Edit Glob Grep Agent WebFetch Skill
+# Note: Agent, WebFetch, and Skill are Claude Code tools. On other hosts,
+# use equivalent capabilities or degrade gracefully.
+---
+
+# Twitter Bookmark Digest
+
+Process exported Twitter/X bookmarks, extract insights, and update the vault plus any relevant agent guidance files.
+
+## When NOT to Use
+
+- **Posting or general Twitter search** — this skill processes exports; it only touches X directly for optional bookmark fetch/enrichment
+- **Single articles or links** — just add them to the vault directly; this is for batch bookmark processing
+- **Recalling past digests** — use `/seance` to find previous processing sessions
+
+## What to Skip
+
+- Don't import memes, duplicate links, outrage bait, or bookmarks with no durable idea.
+- Don't write raw bookmark dumps, cookies, bearer tokens, or private session material into the vault.
+- Don't archive an input file until vault writes, duplicate checks, and summary generation all succeed.
+
+## Context
+
+You are processing Twitter/X bookmarks into a local markdown knowledge vault. See [references/categorization-guide.md](references/categorization-guide.md) for default interest categories, per-bookmark decision criteria, and vault entry format. Adapt the categories to the user's vault when local conventions already exist.
+
+## Vault Location
+
+```
+VAULT_DIR=${VAULT_DIR:-$HOME/vault}
+INBOX_DIR=$VAULT_DIR/twitter-bookmarks/inbox
+PROCESSED_DIR=$VAULT_DIR/twitter-bookmarks/processed
+INSIGHTS_DIR=$VAULT_DIR/insights
+```
+
+## Step 0 — Fetch bookmarks (if inbox is empty)
+
+If the inbox is empty and no file argument was provided, offer to fetch fresh bookmarks:
+
+```bash
+"$VAULT_DIR/twitter-bookmarks/fetch-bookmarks.sh"
+```
+
+Preflight before fetching:
+
+```bash
+command -v gallery-dl >/dev/null && command -v yt-dlp >/dev/null && command -v jq >/dev/null
+git -C "$VAULT_DIR" check-ignore -q twitter-bookmarks/cookies.txt || echo "Add cookies.txt to .gitignore before fetching"
+```
+
+If cookies are missing, run with `--refresh-cookies` first (requires Chrome to be closed):
+
+```bash
+"$VAULT_DIR/twitter-bookmarks/fetch-bookmarks.sh" --refresh-cookies
+chmod 600 "$VAULT_DIR/twitter-bookmarks/cookies.txt"
+```
+
+Never print cookie contents, bearer tokens, `auth_token`, or `ct0` values.
+
+## Step 1 — Find bookmark exports
+
+Look for unprocessed bookmark files in `$INBOX_DIR/`. If `$ARGUMENTS` specifies a file path, use that instead. Supported formats:
+- **JSON from fetch-bookmarks.sh** (preferred — array of `{text, author, author_handle, url, date}`): the automated pipeline output
+- **JSON** (Twitter data export `bookmarks.js`, or browser extension exports)
+- **CSV** (common extension format: columns like `text`, `url`, `author`, `created_at`)
+- **Markdown** (manually saved threads or lists)
+
+If no files found and fetch script isn't available, suggest manual export:
+1. **X data export**: Settings → Your Account → Download an archive → extract `data/bookmarks.js`
+2. **Browser extensions**: "Bookmark Bird", "Dewey", or similar → export as CSV/JSON
+3. **Manual**: Copy-paste interesting threads into a `.md` file in the inbox folder
+
+## Step 1.5 — Enrich articles and threads
+
+Some bookmarks are X Articles (Notes) where the `text` field is just a URL. These need enrichment before categorization.
+
+See [references/twitter-api-enrichment.md](references/twitter-api-enrichment.md) for the GraphQL endpoint, auth details, and processing steps.
+
+## Step 2 — Read and categorize
+
+For each bookmark, determine category, key insight, actionability, and source. See [references/categorization-guide.md](references/categorization-guide.md) for the full decision criteria and category definitions.
+
+## Step 3 — Update the vault
+
+For each category, append new entries to the corresponding file in `$INSIGHTS_DIR/<category>/`. See [references/categorization-guide.md](references/categorization-guide.md) for the vault entry format, file naming conventions, and wikilink/tag guidance.
+
+Before writing, search existing notes for the bookmark URL or tweet ID. Skip duplicates; if an existing note covers the same idea, add only a concise new source line or action item.
+
+## Step 4 — Surface agent guidance updates
+
+If any bookmarks suggest:
+- **New tools or libraries** the user should know about → suggest adding to `AGENTS.md`, `CLAUDE.md`, or the relevant local guidance file
+- **Workflow improvements** for agentic coding → suggest a guidance-file update or persistent note
+- **Patterns to adopt** in their codebase → suggest a persistent note for future sessions
+
+Present these as suggestions — don't auto-modify guidance files without confirmation.
+
+## Step 5 — Archive processed files
+
+Move processed files from `$INBOX_DIR/` to `$PROCESSED_DIR/` with a date prefix (e.g., `2026-03-27_bookmarks.json`).
+
+## Step 6 — Summary
+
+Output a brief digest:
+- Total bookmarks processed
+- Breakdown by category (count)
+- Top 3-5 most actionable insights
+- Any suggested guidance-file or memory updates

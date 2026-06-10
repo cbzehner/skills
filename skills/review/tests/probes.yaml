@@ -1,0 +1,37 @@
+probes:
+  # Trigger: security lens
+  - prompt: "I just rewrote the JWT handling in api/auth/tokens.go. Before I merge, go through it and flag anything an attacker could abuse — leaked credentials, injection paths, missing authorization checks, that kind of thing."
+    expected_skills: ["review"]
+  # Trigger: architecture lens
+  - prompt: "Take a look at how I split the new billing work across packages/billing and packages/invoices. Does the layering hold up, or am I coupling modules that shouldn't know about each other?"
+    expected_skills: ["review"]
+  # Trigger: accessibility lens
+  - prompt: "Before the signup form in components/SignupForm.tsx ships, check it for keyboard traps, unlabeled inputs, focus order problems, and low-contrast text."
+    expected_skills: ["review"]
+  # Trigger: docs lens
+  - prompt: "Our README and docs/setup.md haven't been touched since we moved from yarn to pnpm. Go through them and tell me what's stale, what's wrong, and what setup steps are missing."
+    expected_skills: ["review"]
+  # Trigger: spec alignment lens
+  - prompt: "Compare my branch feature/csv-export against the acceptance criteria in notes/eng-482.md and tell me what's missing, what's implemented wrong, and whether anything snuck in that the ticket never asked for."
+    expected_skills: ["review"]
+  # Trigger: release readiness lens
+  - prompt: "We're cutting v2.4 tomorrow. Look over db/migrations/0042_add_tenant_id.sql and the deploy config changes and tell me if there's anything that could blow up in prod or that we can't roll back."
+    expected_skills: ["review"]
+  # Trigger: deep PR/bug-fix lens
+  - prompt: "PR #312 supposedly fixes the duplicate-charge bug. Dig into it properly — I want the actual root cause with file and line, which commit introduced the bug, and whether the fix lands at the right layer or just papers over a symptom."
+    expected_skills: ["review"]
+  # Near-miss: debugging an unexplained failure -> diagnose
+  - prompt: "tests/test_export.py started failing after I bumped pandas to 2.3 and the error message makes no sense. Figure out what's actually going on."
+    expected_skills: ["diagnose"]
+  # Near-miss: apply simplification fixes, not just report -> simplify
+  - prompt: "src/lib/queue.ts got messy — collapse the three near-identical handlers into one and clean up the dead branches while you're in there."
+    expected_skills: ["simplify"]
+  # Near-miss: ship/PR flow -> finish-task
+  - prompt: "I'm done with feature/payment-retries. Wrap it up and open a PR against main with a decent description."
+    expected_skills: ["finish-task"]
+  # Near-miss: confirm a change works by running it -> verify
+  - prompt: "Can you start the app and confirm the new dark mode toggle on localhost:5173 actually persists after a refresh?"
+    expected_skills: ["verify"]
+  # Near-miss: adversarial critique of an approach, no artifact -> counsel
+  - prompt: "I'm torn between Postgres LISTEN/NOTIFY and Redis streams for the job queue. Poke holes in both options and tell me which one survives."
+    expected_skills: ["counsel"]

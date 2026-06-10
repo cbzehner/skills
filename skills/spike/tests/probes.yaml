@@ -1,0 +1,41 @@
+probes:
+  # --- should trigger: library behavior unknown ---
+  - prompt: "Before I commit to anything for the vault search rewrite — can sqlite's FTS5 actually do the fuzzy matching we need across ~40k notes? Hack something together in a scratch folder and just tell me yes or no, we'll throw it out after."
+    expected_skills: ["spike"]
+  # --- should trigger: performance unknown ---
+  - prompt: "I'm worried that parsing every markdown file in vault/ on startup will be way too slow. Knock out a quick script to measure it on my machine before we design the indexer for real."
+    expected_skills: ["spike"]
+  # --- should trigger: API shape unknown ---
+  - prompt: "The Restate SDK docs are vague about whether you can await two durable promises concurrently from one handler. Try it in a tiny sandbox project and tell me what actually happens — don't touch the pipeline code."
+    expected_skills: ["spike"]
+  # --- should trigger: feasibility / proof of life ---
+  - prompt: "Not sure it's even possible to stream Gemini output through the zsh wrapper without it buffering the whole response. Give it half an hour, see if you can get a proof of life, then we decide if it's worth doing properly."
+    expected_skills: ["spike"]
+  # --- should trigger: UI approach unknown, compare disposable mockups ---
+  - prompt: "I can't tell whether a virtualized list or plain pagination will feel better for the digest view. Mock both up quick and dirty so we can compare side by side — none of it needs to survive."
+    expected_skills: ["spike"]
+  # --- should trigger: integration risk ---
+  - prompt: "Before we wire Linear webhooks into evolver, can you point a dummy endpoint at them and confirm the payloads actually include label changes? Just poking at it, we'll delete the endpoint after."
+    expected_skills: ["spike"]
+  # --- should trigger: can't plan yet, unknown blocks planning ---
+  - prompt: "I want OCR in the bookmarks importer but honestly I have no idea if tesseract reads screenshots of tweets well enough to bother. I can't write up the work until we know one way or the other."
+    expected_skills: ["spike"]
+
+  # --- near miss: tradeoff between two known-viable options -> counsel ---
+  - prompt: "I've got two designs for the digest cache that both clearly work — LRU in memory vs a sqlite table. I just can't pick. Poke holes in each and help me decide."
+    expected_skills: ["counsel"]
+  # --- near miss: requirements already clear, wants milestones -> plan ---
+  - prompt: "We know exactly what the twitter importer needs to do: take the bookmark export JSON and produce categorized notes under vault/twitter/. Help me break that into milestones with acceptance criteria."
+    expected_skills: ["plan"]
+  # --- near miss: confirm a finished change works -> verify ---
+  - prompt: "I just finished the retry logic in pipeline/worker.ts — run the app and confirm failed jobs actually get retried three times before going to the dead letter queue."
+    expected_skills: ["verify"]
+  # --- near miss: failing tests with unclear errors -> diagnose ---
+  - prompt: "The vault indexer test suite started failing after yesterday's merge and the error output is useless. Track down the root cause for me."
+    expected_skills: ["diagnose"]
+  # --- near miss: prove a concrete artifact before shipping -> validate ---
+  - prompt: "Check that db/migrations/0042_add_digest_index.sql runs cleanly against a copy of the prod snapshot before I ship it."
+    expected_skills: ["validate"]
+  # --- near miss: multi-source written report, not an experiment -> deep-research ---
+  - prompt: "Put together a sourced writeup comparing the Rust SQLite ORM options out there right now — maintenance activity, async support, who's actually using each."
+    expected_skills: ["deep-research"]

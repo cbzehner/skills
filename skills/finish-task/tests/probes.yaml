@@ -1,0 +1,38 @@
+probes:
+  # --- should trigger: end-to-end completion after implementation ---
+  - prompt: "ok the retry logic in src/queue/worker.ts is solid and the tests are green — take this the rest of the way so I can call it done"
+    expected_skills: ["finish-task"]
+  # --- should trigger: open a PR for completed work ---
+  - prompt: "the auth middleware change in ~/Developer/work/payments-api is implemented, can you get a pull request up for it with the evidence attached?"
+    expected_skills: ["finish-task"]
+  # --- should trigger: update an existing PR after addressing feedback ---
+  - prompt: "I addressed all the comments on PR #214 in linear-sync — push the latest and refresh the PR body to match"
+    expected_skills: ["finish-task"]
+  # --- should trigger: worktree merge back into the mainline ---
+  - prompt: "I've been doing the cache work in the feature-cache worktree of my dotfiles repo, fold it back into main once everything checks out"
+    expected_skills: ["finish-task"]
+  # --- should trigger: direct default-branch delivery on a personal repo ---
+  - prompt: "this is just my personal blog repo, put the typo fixes straight onto main for me"
+    expected_skills: ["finish-task"]
+  # --- should trigger: ship/deliver phrasing for completed work ---
+  - prompt: "the db migration script works locally now, let's get it out the door"
+    expected_skills: ["finish-task"]
+  # --- should trigger: UI change ready for delivery with visual proof ---
+  - prompt: "the new settings page in webapp/src/pages/Settings.tsx looks right to me — package it up with before/after captures and send it off for review"
+    expected_skills: ["finish-task"]
+
+  # --- near-miss: proof only, no delivery -> validate ---
+  - prompt: "before I do anything else with the bugfix/cursor-jump branch, can you double-check the fix actually holds up?"
+    expected_skills: ["validate"]
+  # --- near-miss: focused review lens, not completion -> review ---
+  - prompt: "give the diff on my feature branch a hard security-focused look, I'm not done with it yet"
+    expected_skills: ["review"]
+  # --- near-miss: history cleanup and conflicts -> git ---
+  - prompt: "my branch has like 12 WIP commits and a rebase conflict against main, help me untangle the history"
+    expected_skills: ["git"]
+  # --- near-miss: run the app and observe one behavior -> verify ---
+  - prompt: "run the app and confirm the export button actually downloads a CSV now"
+    expected_skills: ["verify"]
+  # --- near-miss: delegate remaining work, not finish it -> handoff ---
+  - prompt: "I have to step away — write me a prompt another agent can use to pick up this half-done feature cold"
+    expected_skills: ["handoff"]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git"
+  short_description: "Guide advanced git recovery, cleanup, and stacking"
+  default_prompt: "Use $git to handle this git workflow safely and choose the right recovery or history-cleanup approach."

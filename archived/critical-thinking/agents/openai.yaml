@@ -1,0 +1,4 @@
+interface:
+  display_name: "Critical Thinking"
+  short_description: "Apply rigorous reasoning and adversarial analysis"
+  default_prompt: "Use $critical-thinking to pressure-test this reasoning and surface flaws, assumptions, and implications."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Skill"
+  short_description: "Create, update, or audit SKILL.md files"
+  default_prompt: "Use $create-skill to improve this skill's triggerability, frontmatter, and validation."

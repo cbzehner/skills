@@ -1,0 +1,44 @@
+probes:
+  # Trigger family: post-review fixup (fixup-history.md)
+  - prompt: "I just pushed changes addressing all the reviewer comments on my payments-service PR, but now there's an 'address feedback' commit sitting on top of everything. Can you fold those edits back into the original commits they each belong to?"
+    expected_skills: ["git"]
+  # Trigger family: pre-PR commit cleanup (clean-commits.md)
+  - prompt: "About to open the PR for feat/webhook-retries but git log is a disaster — like nine commits that say 'wip', 'tmp', 'fix again', 'actually fix'. Tidy this up before I embarrass myself in front of the team?"
+    expected_skills: ["git"]
+  # Trigger family: regression hunting (bisect-regression.md)
+  - prompt: "The CSV export in reports/exporter.py was definitely working two weeks ago and now it throws a KeyError. Nothing in the recent diffs looks related. Can you figure out which commit broke it?"
+    expected_skills: ["git"]
+  # Trigger family: breaking up a large branch into dependent PRs (stack-prs.md)
+  - prompt: "My notifications-revamp branch touches 23 files across the Rails API and the React frontend — no one will review that. Can we break it into a chain of smaller PRs where each one builds on the previous?"
+    expected_skills: ["git"]
+  # Trigger family: parallel work without losing context (parallel-worktrees.md)
+  - prompt: "I'm halfway through refactoring src/parser.rs with a dirty tree, but a P0 just came in and I need to ship a hotfix off main right now without losing where I am. What's the cleanest way to work on both at once?"
+    expected_skills: ["git"]
+  # Trigger family: conflict resolution (resolve-conflicts.md)
+  - prompt: "Pulled in the latest main and now I'm stuck on 'CONFLICT (content): Merge conflict in src/app.ts' plus package-lock.json is both-modified. Help me get through this without losing my changes."
+    expected_skills: ["git"]
+  # Trigger family: recovery from a botched rewrite (recover-from-mistake.md)
+  - prompt: "I think I screwed up squashing on feature/onboarding — git log only shows 3 of the 9 commits I had this morning and two days of work looks gone. Please get them back."
+    expected_skills: ["git"]
+  # Trigger family: wrong-branch commit (recover-from-mistake.md)
+  - prompt: "Ugh, I just realized the last four commits I made went straight onto main locally instead of my feature branch fix/session-timeout. Can you move them over and put main back the way it was?"
+    expected_skills: ["git"]
+
+  # Near-miss: basic git operation, host agent handles it — no skill
+  - prompt: "Commit what's in the working tree with a message about the config change and push it up to origin."
+    expected_skills: []
+  # Near-miss: implementation done, clean delivery flow — finish-task owns PR creation
+  - prompt: "The fix on fix/login-redirect is done and tests pass — wrap it up and get the PR posted."
+    expected_skills: ["finish-task"]
+  # Near-miss: failing tests from current change, not a historical regression — diagnose
+  - prompt: "test_invoice.py started failing right after my last edit and the assertion error makes no sense to me. Figure out what's actually going wrong."
+    expected_skills: ["diagnose"]
+  # Near-miss: reviewing a branch diff, not restructuring it — code-review
+  - prompt: "Before I send my branch to the team, go through the diff against main and flag anything broken or sloppy."
+    expected_skills: ["code-review"]
+  # Near-miss: worktree vocabulary, but it's a completion/merge-back flow — finish-task
+  - prompt: "I'm done with everything in the ../app-wt-notifications worktree — merge it back into the default branch and clean up after."
+    expected_skills: ["finish-task"]
+  # Near-miss: recovering abandoned work from past agent sessions, not from git history — seance
+  - prompt: "A few days ago in another session we started building the rate limiter and never finished. Dig up what was done back then so we can pick it up."
+    expected_skills: ["seance"]

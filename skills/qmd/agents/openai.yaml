@@ -1,0 +1,4 @@
+interface:
+  display_name: "QMD Search"
+  short_description: "Search local markdown notes and document vaults"
+  default_prompt: "Use $qmd to search my local markdown notes and retrieve the most relevant documents."

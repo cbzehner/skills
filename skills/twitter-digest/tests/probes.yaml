@@ -1,0 +1,43 @@
+probes:
+  # --- should trigger ---
+  # Family: processing an official X data archive export
+  - prompt: "just downloaded my X data archive, there's a data/bookmarks.js in ~/Downloads/twitter-2026-06-08/ — pull the useful stuff out of it and file it into my vault"
+    expected_skills: ["twitter-digest"]
+  # Family: processing a fetched JSON file already sitting in the inbox
+  - prompt: "there's a fresh bookmarks_2026-06-09.json in ~/vault/twitter-bookmarks/inbox — go through it and sort everything worth keeping into my insights notes"
+    expected_skills: ["twitter-digest"]
+  # Family: inbox empty, wants fresh fetch + processing
+  - prompt: "my twitter-bookmarks inbox is empty but I saved a ton of stuff on X this week — can you pull it down and work through it?"
+    expected_skills: ["twitter-digest"]
+  # Family: browser-extension CSV export
+  - prompt: "I used Dewey to dump everything I'd saved on twitter into ~/Downloads/dewey-export.csv, turn the good ones into notes and toss the memes"
+    expected_skills: ["twitter-digest"]
+  # Family: X Articles needing enrichment before filing
+  - prompt: "half the things I saved on X are those long-form Articles where the json text field is just an x.com/i/article URL — grab the full text for those and then file them with the rest"
+    expected_skills: ["twitter-digest"]
+  # Family: manually pasted threads in a markdown file
+  - prompt: "I copy-pasted a handful of threads I liked into inbox/threads-may.md — read through them, skip the junk, and add the keepers under the right topic in my insights folder"
+    expected_skills: ["twitter-digest"]
+  # Family: actionability pass over saved posts
+  - prompt: "run through my saved X posts from last month and tell me which ones actually have something I should try, then file those away properly"
+    expected_skills: ["twitter-digest"]
+
+  # --- near misses ---
+  # Live Twitter browsing/scraping, not export processing -> browser
+  - prompt: "open x.com in chrome and scrape the replies under https://x.com/karpathy/status/1234567890 so I can read them offline"
+    expected_skills: ["browser"]
+  # Recalling a previous processing run -> seance
+  - prompt: "what did we end up filing from my X saves last week? find the session where we went through them"
+    expected_skills: ["seance"]
+  # Searching existing vault notes -> qmd
+  - prompt: "search my vault for that note about rust async runtimes, I think we filed it a while back"
+    expected_skills: ["qmd"]
+  # Researching a topic discussed on Twitter -> deep-research
+  - prompt: "people on twitter keep arguing about Bun 2.0's compatibility claims — put together a fact-checked report on what's actually true"
+    expected_skills: ["deep-research"]
+  # Modifying the workflow itself -> create-skill
+  - prompt: "the twitter bookmark workflow keeps choking on CSV exports with a tweet_text column — update the skill definition so it handles that header"
+    expected_skills: ["create-skill"]
+  # Single link, no batch processing -> no skill
+  - prompt: "add this one blog post to my vault: https://danluu.com/simple-architectures/ — just a short note under business-tech"
+    expected_skills: []

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Twitter Digest"
+  short_description: "Process exported bookmarks into categorized insights"
+  default_prompt: "Use $twitter-digest to process this bookmark export and turn it into categorized vault notes."

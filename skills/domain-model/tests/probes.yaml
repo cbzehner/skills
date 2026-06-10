@@ -1,0 +1,41 @@
+probes:
+  # --- should trigger: conflicting names for the same concept across docs and code ---
+  - prompt: "In billing-api we call the same thing 'subscription' in the REST layer, 'plan' in the Postgres models, and half the README says 'membership'. Can you figure out which name is actually right and make the docs and code agree?"
+    expected_skills: ["domain-model"]
+  # --- should trigger: bootstrap a shared-terms reference from existing evidence ---
+  - prompt: "I keep re-explaining what 'workspace' vs 'project' means to every new contributor on acme-app. Read through the codebase and write up a short reference of our core terms at the repo root so agents stop guessing."
+    expected_skills: ["domain-model"]
+  # --- should trigger: record a hard-to-reverse naming/concept decision durably ---
+  - prompt: "We decided to merge the 'Listing' and 'Offer' concepts into one model in marketplace-api. It's a one-way door and the reasoning isn't obvious. Where in the repo should we write down why we did this, and can you draft it?"
+    expected_skills: ["domain-model"]
+  # --- should trigger: scan for terms that diverged between docs and code over time ---
+  - prompt: "Can you scan the loanflow repo for places where the code says 'borrower' but the docs still say 'applicant'? I think they drifted apart over the last few months — list everything that needs renaming."
+    expected_skills: ["domain-model"]
+  # --- should trigger: pin down terminology before planning a feature ---
+  - prompt: "Before we plan the multi-tenant rework in restate-pipeline, I want to nail down what we actually mean by 'tenant', 'org', and 'account' — right now they're used interchangeably and it's going to bite us during implementation."
+    expected_skills: ["domain-model"]
+  # --- should trigger: audit an existing CONTEXT.md against code reality ---
+  - prompt: "There's a CONTEXT.md at the root of evolver/ but I'm pretty sure half the entries describe features we never shipped. Check it against what's actually in the code and trim the dead entries."
+    expected_skills: ["domain-model"]
+  # --- should trigger: one word overloaded with multiple meanings in the codebase ---
+  - prompt: "'job' means three different things in worker-queue: the cron entry, the queued task struct, and the DB row. New devs keep mixing them up in PRs. Help me untangle the naming and write down what each one means."
+    expected_skills: ["domain-model"]
+
+  # --- near miss: shareable architecture explainer page, not language alignment ---
+  - prompt: "Write up a polished page explaining how the scheduler in dispatch-server works under the hood, with diagrams, something I could share on Hacker News."
+    expected_skills: ["how-it-works"]
+  # --- near miss: purely mechanical identifier rename, no doc/term conflict ---
+  - prompt: "Rename the variable `usr` to `user` everywhere under src/auth/ — just a mechanical find-and-replace, nothing else."
+    expected_skills: []
+  # --- near miss: durable project gotcha belongs in repo memory, not a glossary ---
+  - prompt: "Add a note to this repo's memory that the staging DB resets every Sunday night, so future sessions don't waste time debugging missing rows."
+    expected_skills: ["repo-memory"]
+  # --- near miss: architecture review of a diff, not terminology work ---
+  - prompt: "Take a look at the new module boundaries introduced in PR #482 and tell me whether the service split makes sense architecturally."
+    expected_skills: ["review"]
+  # --- near miss: turning notes into an implementation plan ---
+  - prompt: "Turn my notes in notes/export-feature.md into a proper implementation plan with acceptance criteria and execution slices."
+    expected_skills: ["plan"]
+  # --- near miss: prose tone cleanup of docs, not term alignment ---
+  - prompt: "The README for skill-cleaner reads super robotic and over-polished — make it sound like an actual person wrote it."
+    expected_skills: ["humanize"]
