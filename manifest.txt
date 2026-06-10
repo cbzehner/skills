@@ -1,1 +1,21 @@
-agent-ergonomic-design browser complexity-guard counsel create-skill design diagnose domain-model finish-task git handoff how-it-works humanize plan qmd repo-memory review seance spike twitter-digest validate
+agent-ergonomic-design
+browser
+complexity-guard
+counsel
+create-skill
+design
+diagnose
+domain-model
+finish-task
+git
+handoff
+how-it-works
+humanize
+plan
+qmd
+repo-memory
+review
+seance
+spike
+twitter-digest
+validate
