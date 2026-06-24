@@ -2,13 +2,11 @@
 name: finish-task
 description: >-
   Finish coding work end-to-end after implementation is believed complete:
-  validate evidence, capture provenance, run local autoreview or equivalent
-  review gates, use `counsel --panel` and complexity-guard, check
-  architecture/philosophy alignment, capture or attach screenshots for UI work,
-  then deliver through a PR, guarded default-branch commit, or worktree merge
-  based on repository metadata. Use when the user says finish, wrap up, ship it,
-  make a PR, create/update the PR, merge this worktree into the default branch,
-  commit directly to the default branch, or asks for a task completion flow.
+  consume validation evidence, run applicable review gates, capture provenance,
+  and deliver through the repo's approved path. Use when the user says finish,
+  wrap up, ship it, make a PR, create/update the PR, merge this worktree into
+  the default branch, commit directly to the default branch, or asks for a task
+  completion flow.
 argument-hint: "[--work-pr|--personal-main] [--skip-screenshots] [--upload] [--yes]"
 arguments:
   - options
@@ -24,6 +22,22 @@ Finish the current coding task with evidence, review, and the delivery path that
 This is a finalization workflow, not an implementation loop. If the task is not actually done, stop and report the remaining work instead of packaging an incomplete change.
 
 `validate` owns proof that the artifact works. This skill consumes that evidence, adds review gates, and performs repo-appropriate delivery.
+
+## Finish Contract
+
+Before delivery work begins, write a short contract:
+
+- **Target:** branch, PR, commit range, or default-branch update being finished.
+- **Evidence:** validation report or exact checks required before delivery.
+- **Review budget:** local-only for tiny safe changes; full gates for risky,
+  architectural, security-sensitive, UI, migration, or user-requested review.
+- **Delivery mode:** PR, guarded default branch, or blocked.
+- **Stop:** pushed PR, local commit ready to push, explicit blocker, or user
+  checkpoint.
+
+Do not let this skill become a second implementation loop. If the contract
+reveals unfinished work, route back to implementation, `diagnose`, `validate`,
+or `optimize` instead of packaging an incomplete change.
 
 ## Generic Routing
 
@@ -52,7 +66,8 @@ Guarded Default Branch mode is allowed only when the remote owner is the authent
 
 ## Workflow
 
-Follow the workflow in order. Load the companion recipes only when you reach that section.
+Follow the workflow in order. Load companion recipes only when you reach that
+section; recipes own their details so this skill stays an orchestrator.
 
 ### 1. Preflight
 
@@ -147,14 +162,18 @@ If a session ID is not available from local logs, environment, or the running to
 
 ### 5. Review Gates
 
-Load [recipes/review-gates.md](recipes/review-gates.md) and complete every applicable gate. The recipe owns the detailed review checklist; do not duplicate it in the final report.
+Load [recipes/review-gates.md](recipes/review-gates.md) and complete only the
+gates required by the finish contract. The recipe owns the detailed review
+checklist; do not duplicate it in the final report.
 
-- Thorough code review.
-- Complexity guard pass.
-- Architecture pass.
-- Philosophy/alignment pass.
-- Magi review.
-- Final self-review after any fixes.
+Default gate selection:
+
+- Tiny docs/config/no-behavior change: self-review plus relevant formatting or
+  render check.
+- Normal code change: code review, complexity guard, and final self-review.
+- Architecture, schema, security, migration, UI, or workflow change: full gates,
+  including `counsel --panel` when available.
+- User requested "magi" or multi-model review: run `counsel --panel`.
 
 Do not proceed to delivery with unresolved high-severity findings. Fix them or stop.
 
@@ -214,6 +233,15 @@ Delivery:
 ```
 
 Keep it short. Include blockers plainly when delivery could not complete.
+
+## Handoffs
+
+- Missing or failed proof: route to `validate` or `diagnose`.
+- Broad cleanup discovered during finishing: route to `optimize`; do not fold it
+  into delivery.
+- Messy commits, stacked PRs, conflict recovery, or worktree operations beyond
+  the simple delivery recipe: route to `git`.
+- Product/spec ambiguity: route to `plan` or `counsel` before delivery.
 
 ## Options
 

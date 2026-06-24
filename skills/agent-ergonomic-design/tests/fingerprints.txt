@@ -1,0 +1,3 @@
+Design test: "Can an agent reliably parse this
+Token budget is a first-class constraint
+Treat output schemas as **stable API contracts**

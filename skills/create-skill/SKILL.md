@@ -56,9 +56,29 @@ Build skills through interview, not scaffolding.
 
 ## Workflow
 
-Guide the user through Steps 1-6 using AskUserQuestion (Steps 7-8 are standalone audit and evaluation modes for existing skills). Use multiple choice where possible. Ask one question at a time. Go deep.
+Guide the user through the shortest path that produces a tested skill. Use
+AskUserQuestion when requirements are ambiguous; skip the interview when the
+conversation already contains enough concrete examples and workflow evidence.
+Steps 7-8 are standalone audit and evaluation modes for existing skills.
 
 **Before starting**: Check if the current conversation already contains a workflow the user wants to capture. If so, extract the tools used, the sequence of steps, corrections the user made, and input/output formats observed. Present this as a starting point — the user fills gaps and confirms.
+
+## Fast Path From Observed Workflow
+
+Use this path when the current session already contains at least three concrete
+examples, a clear trigger boundary, and observable good/bad outputs:
+
+1. Extract the workflow contract: trigger, required inputs, produced artifact,
+   evidence, stop condition, and handoffs.
+2. Compare neighboring skills so the new skill owns one narrow job instead of
+   duplicating an existing route.
+3. Write the skill, UI metadata, probes, and body fingerprints in one pass.
+4. Run structural validation and at least one realistic probe or manual routing
+   check.
+5. Report the skill as packaged and whether it has been exercised in a real run.
+
+Fall back to the interview path when examples are thin, the trigger overlaps
+another skill, or the user has not approved the intended behavior.
 
 ---
 
@@ -141,4 +161,3 @@ See [references/audit-protocol.md](references/audit-protocol.md) for the full pr
 Measure a skill quantitatively without changing it: token profile and expected load, real usage stats from transcripts, trigger-selection F1 from a probe panel, and behavioral adherence against binary criteria. Use at Step 5 packaging, before and after a Step 7 audit (changes should be eval-gated, not vibes-gated), or as a periodic health check.
 
 See [references/evaluation-protocol.md](references/evaluation-protocol.md) for the protocol. Deterministic measurements are bundled as scripts: `scripts/token-profile.sh <skill-dir>` and `scripts/usage-stats.sh <skill-name>`.
-

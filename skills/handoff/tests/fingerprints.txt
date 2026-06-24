@@ -1,0 +1,3 @@
+The receiving agent does not share your working directory
+Do not paste the full prompt back unless the user asks
+Core Constraint: Portable Anchors Only

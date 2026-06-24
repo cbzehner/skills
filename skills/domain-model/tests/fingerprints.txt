@@ -1,0 +1,3 @@
+Bootstrap repo language from existing evidence
+Prefer one small context file
+promote only settled terms

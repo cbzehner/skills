@@ -1,0 +1,3 @@
+Ignore `*/subagents/*.jsonl`
+The word "resurrect" signals action intent
+Set `SESSION_BACKEND`

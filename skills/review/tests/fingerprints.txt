@@ -1,0 +1,3 @@
+Lead with findings
+do not accept "looks fine" surface review
+Name the fix's *ownership boundary*

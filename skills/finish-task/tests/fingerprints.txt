@@ -1,0 +1,3 @@
+Finish Contract
+Do not let this skill become a second implementation loop
+recipes own their details so this skill stays an orchestrator

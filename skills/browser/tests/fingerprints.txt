@@ -1,0 +1,3 @@
+Before any DOM interaction: look before you touch
+Route by what the task **requires**, not by task label
+**Do not trust `command -v` alone**

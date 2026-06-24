@@ -1,0 +1,3 @@
+Durability rule
+What should this help someone do
+Each phase must be a vertical slice

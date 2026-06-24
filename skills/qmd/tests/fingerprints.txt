@@ -1,0 +1,3 @@
+Local search engine for markdown content
+First query gets 2x weight in fusion
+`hyde` | Vector

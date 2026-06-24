@@ -1,0 +1,3 @@
+### 5. Independent Commits Commute
+Before any rebase, reset, or history rewrite
+Always `git push --force-with-lease --force-if-includes`

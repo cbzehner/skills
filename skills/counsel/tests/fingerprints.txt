@@ -1,0 +1,3 @@
+Pick exactly one mode first
+Panel mode is for decisions worth external latency
+`magi` is trigger vocabulary for panel mode

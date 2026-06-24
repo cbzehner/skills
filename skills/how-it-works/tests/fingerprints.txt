@@ -1,0 +1,3 @@
+Page Contract
+Use the minimum path that satisfies the page contract
+headings-only skim test
