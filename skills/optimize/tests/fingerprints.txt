@@ -1,0 +1,4 @@
+Anchor The Loop
+Write the stop condition like a contract
+Anti-Rationalization Table
+Persistent artifacts such as tickets and plans must avoid file paths

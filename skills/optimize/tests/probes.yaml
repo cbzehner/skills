@@ -1,0 +1,11 @@
+probes:
+  - prompt: "Optimize this repo. Use date to check the time, keep cutting unnecessary complexity, and don't stop until the scope is documented or safe fixes are committed."
+    expected_skills: ["optimize"]
+  - prompt: "Can you simplify the billing service end-to-end? Remove what is safe locally, ticket bigger data-model changes, and run a review before wrapping up."
+    expected_skills: ["optimize"]
+  - prompt: "This codebase feels bloated. Figure out what can be deleted, what should move to existing primitives, and keep working through the obvious cleanup."
+    expected_skills: ["optimize"]
+  - prompt: "Review this PR for overengineering and list what you would cut, but don't edit anything."
+    expected_skills: ["complexity-guard"]
+  - prompt: "The import job is failing after the dependency upgrade. Find the root cause before we change anything."
+    expected_skills: ["diagnose"]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optimize"
+  short_description: "Simplify codebases end-to-end"
+  default_prompt: "Use $optimize to simplify this codebase, remove unnecessary complexity, and keep going until the stated stop condition."
