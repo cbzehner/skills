@@ -74,10 +74,13 @@ Excerpt relevant sections, not whole files. Never include secrets/credentials. B
 gemini -p "$(cat <<'PROMPT'
 [advisor prompt with any characters safely]
 PROMPT
-)" --model gemini-3.1-pro-preview --sandbox -o json
+)" --model gemini-3.1-pro-preview --skip-trust --approval-mode plan -o json
 ```
 
-If Gemini reports a missing API key, check `~/.gemini/.env` first. Non-interactive `gemini -p` expects `GEMINI_API_KEY` there; do not print or persist the key in session notes.
+Flag rationale (each earned through real failures — do not drop or add to this set without re-testing):
+- `--skip-trust`: headless `gemini -p` refuses to run in any directory absent from `~/.gemini/trustedFolders.json` ("not running in a trusted directory"). This skill runs in arbitrary repos, so the gate must be passed explicitly.
+- `--approval-mode plan`: restricts Gemini to read-only tools (no shell, no file writes). This is the safety boundary that contains the workspace-tool surface `--skip-trust` would otherwise expose to a hostile repo's `.gemini/` config. The advisor only needs to reason and reply, so read-only loses nothing.
+- **No `--sandbox`**: sandboxing severs the CLI's access to the host's ambient credentials, producing a misleading "you must specify the GEMINI_API_KEY environment variable" (code 41) even when auth is otherwise working. This was the dominant historical failure mode; do not reintroduce it.
 
 **Codex transport:** Prefer a local `codex-adapter.sh` when available because it prevents stdin hangs in subagent environments. If this counsel skill was installed without the adapter, use direct `codex exec ... < /dev/null` as a fallback and note that the adapter was unavailable.
 
@@ -172,7 +175,9 @@ Always use `## Synthesis`, `## Claude`, `## Gemini`, `## Codex` headers (grep an
 |---|---|---|
 | Permission denied | **STOP** — show setup guidance | Panel mode's value is multi-perspective. Single-advisor fallback is just a normal conversation |
 | 429 / capacity | Wait 60s → retry → proceed without | Gemini has limited capacity |
-| Auth / missing API key | For Gemini, check `~/.gemini/.env` for `GEMINI_API_KEY`; for other CLIs, ask the user to authenticate outside the agent session | |
+| Gemini: "must specify GEMINI_API_KEY" (code 41) | Almost always a flag bug, not missing auth: confirm the invocation has **no `--sandbox`**. Sandbox hides ambient credentials. Only if `gemini -p "ping" --skip-trust --approval-mode plan` *also* fails is auth genuinely absent — then ask the user to log in (`gemini` interactive) or set a real key. Do not hunt for a `~/.gemini/.env`; it may not exist. | |
+| Gemini: "not running in a trusted directory" | Ensure `--skip-trust` is present in the invocation. | |
+| Other CLI auth failure | Ask the user to authenticate outside the agent session | |
 | CLI not found | State the missing CLI and proceed only if at least two advisors remain | |
 | Network error | Retry once, then mark unavailable | |
 
