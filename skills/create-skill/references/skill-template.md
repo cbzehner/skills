@@ -29,7 +29,7 @@ name: skill-name
 description: [third-person, trigger-word-rich, WHAT + WHEN, deliberately pushy, under ~350 chars]
 argument-hint: "[expected arguments]"
 allowed-tools: [tools identified in Step 2]
-# effort: high          # uncomment for complex orchestration/reasoning tasks
+# effort: high          # skill-routing metadata: low|medium|high, not provider reasoning effort
 # disable-model-invocation: true  # uncomment for skills with side effects
 ---
 

@@ -62,6 +62,12 @@ If the user gave a short label, infer the rest from current repo, branch, recent
 
 Just enough for a fresh agent to orient — repo identity, relevant module/symbol names, known symptoms, constraints, non-goals. Do not perform the receiving agent's independent review for them.
 
+If the handoff intentionally changes model tier or reasoning effort, include the
+reasoning as a constraint. For Agent Platform SDLC work, use the counsel panel
+matrix: Fable is an escalation reviewer only and should not be handed off above
+medium effort; prefer Opus/GPT high or GPT xhigh, narrower task slicing, or human
+arbitration over Fable xhigh.
+
 ```bash
 git rev-parse --show-toplevel 2>/dev/null
 git remote -v 2>/dev/null

@@ -109,11 +109,15 @@ Q: Does this skill need external tools?
 
 ### Effort Assessment
 
+This is skill-routing metadata, not provider reasoning effort. Use only
+`low|medium|high`; provider-specific effort policies belong in the workflow
+that invokes a model.
+
 ```
 Q: How much reasoning effort does this skill need?
   1. Low — simple, procedural steps
-  2. High — complex orchestration, judgment calls
-  3. Max — deep analysis, architecture decisions
+  2. Medium — multi-step workflow with some judgment
+  3. High — complex orchestration, deep analysis, or architecture decisions
 ```
 
 ### Resource Guidelines

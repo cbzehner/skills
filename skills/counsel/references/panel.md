@@ -32,6 +32,26 @@ allowed-tools: Bash Read Glob Grep Task Write
 One question, one decision. Each advisor gets the same prompt with enough project
 context to avoid generic answers.
 
+### Agent-Platform Model Matrix
+
+When reviewing Agent Platform SDLC routing, use this current strategy unless the
+repo config says otherwise:
+
+| Stage / Route | Model set | Effort strategy |
+|---|---|---|
+| Detail | Sonnet 5 | medium by default |
+| Routine build | Codex Spark | cap at medium |
+| Standard build | GPT 5.5 | high practical default |
+| Critical build | GPT 5.5 | xhigh for high-consequence work |
+| Routine review | GPT 5.5 | medium |
+| Standard review | GPT 5.5 + Opus 4.8 | GPT high/xhigh, Opus high/xhigh |
+| Critical review | GPT 5.5 + Fable 5 | GPT xhigh, Fable medium max |
+
+Treat Fable as an escalation reviewer, not a routine worker. Never recommend
+unattended Fable effort above medium; Fable low/medium is already comparable to
+Opus 4.8 high or GPT 5.5 xhigh for this use case. Prefer better task slicing,
+deterministic checks, or human arbitration over Fable xhigh.
+
 ### Plan Synthesis
 
 The user has 2-3 competing plans. Each advisor identifies what each plan does
