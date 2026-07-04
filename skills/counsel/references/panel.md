@@ -91,7 +91,7 @@ Excerpt relevant sections, not whole files. Never include secrets/credentials. B
 **Gemini transport:** Call Gemini directly. Keep the model explicit in the command so the invocation is self-contained:
 
 ```bash
-gemini -p "$(cat <<'PROMPT'
+PATH="/opt/homebrew/bin:$PATH" gemini -p "$(cat <<'PROMPT'
 [advisor prompt with any characters safely]
 PROMPT
 )" --model gemini-3.1-pro-preview --skip-trust --approval-mode plan -o json
