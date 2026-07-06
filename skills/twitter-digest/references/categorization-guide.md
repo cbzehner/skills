@@ -27,6 +27,13 @@ For each bookmark, determine:
 
 Items classed `ignore` are **not silently dropped.** Record them in the run's ignore ledger with a one-line reason (see Summary), so a later pass can audit what was discarded and why.
 
+## Entry Quality Rules
+
+- **Capture the claim, not a teaser.** The entry must be useful without re-fetching the source: include the specific numbers, named techniques, or concrete steps that made the bookmark worth saving. "Extends context engineering to include architectural constraints" is a teaser; "compact formats cost up to 740% more tokens because models cycle through familiar patterns" is an insight.
+- **"Read `<link>`" is not an action item.** Either read and summarize the link during this run (enrichment), or file the item as a plain `note` without a checkbox. Action items are reserved for concrete try/adopt/change steps the user could complete without the source.
+- **Reserve `#actionable` for entries with a "Worked if" line.** If you can't state an observable success signal, it isn't actionable — tag it `#tool` or `#pattern` or leave it untagged.
+- **Build source links from `author_handle`, never the display name** (`https://x.com/<handle>/status/<id>`; if the handle is unknown, use `https://x.com/i/status/<id>`). Display names contain spaces and produce broken URLs.
+
 ## Vault Entry Format
 
 For each category, append new entries to the corresponding file in `$INSIGHTS_DIR/<category>/`. Use this format:
@@ -44,7 +51,7 @@ Key insight summary.
 **Anti-pattern** (only for #actionable / #pattern items): <the failure mode this is meant to avoid>
 ```
 
-Group related bookmarks into the same note if they cover the same topic. Create new files per topic rather than one giant file per category. Use descriptive filenames like `rust-async-runtimes.md` or `ai-code-review-patterns.md`.
+Group related bookmarks into the same note if they cover the same topic. Create new files per topic rather than one giant file per category. Use descriptive filenames like `rust-async-runtimes.md` or `ai-code-review-patterns.md`. When a topic file exceeds ~15 entries, split it into narrower subtopics instead of appending further — a 50-entry file is a category in disguise.
 
 Use `[[wikilinks]]` to connect related notes across categories. Tag notes with `#actionable`, `#tool`, `#pattern`, or `#question` as appropriate.
 
