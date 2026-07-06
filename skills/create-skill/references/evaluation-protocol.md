@@ -21,9 +21,11 @@ Order checks by determinism: scripts first, probe panels second, LLM judging las
 
 Skills with `disable-model-invocation: true` skip this section entirely — they are slash-command-only, their description never competes in routing, so trigger F1 is undefined. Token profile and adherence are their only metrics. (Corollary: a skill whose triggers are all explicit user vocabulary can set that flag instead of fighting for routing.)
 
-Probes live in `<skill-dir>/tests/probes.yaml` — superpowers-bench-compatible entries of `prompt`, `expected_skills`, optional `trigger_hint`. Minimum 6 should-trigger and 4 near-miss probes. Write them realistically: casual phrasing, concrete paths, no skill names — a probe that quotes the description tests nothing.
+Probes live in `<skill-dir>/tests/probes.yaml` — superpowers-bench-compatible entries of `prompt`, `expected_skills`, optional `trigger_hint`, and a `note` explaining the expected routing (essential on near-misses: name the neighboring skill that should win and why, so a flipped probe can be triaged as description drift vs. borderline-by-design). Minimum 6 should-trigger and 4 near-miss probes. Every `expected_skills` value must name an installed skill — check this before running the panel; a typo silently scores as a miss. Write them realistically: casual phrasing, concrete paths, no skill names — a probe that quotes the description tests nothing.
 
 Invent every identifying detail. Probes ship with the skill, often to public repos. No real proper names from the author's environment: employer or personal org/repo names, internal service or product names, team names, personal domains or URLs, issue/PR numbers, or the employer's business-domain vocabulary (an internal repo name next to its actual domain terms fingerprints a workplace even when each looks generic alone). Realistic-but-fictional stand-ins of equal concreteness (`acme/billing-api`, `~/work/storefront-api`, `staging.acme.dev`) test routing just as well. Before committing probes, grep them for the user's employer, username, projects, and domains.
+
+**Cheap tier (recommended first): tool-call simulation.** Before spawning subagents, run the panel as raw API calls: present each candidate skill as a function-calling tool (name + description verbatim), set `tool_choice: required`, temperature 0, max_tokens ≤200, and assert which tool the model calls for each probe. One call per probe (~1¢) instead of one agent session (~13k tokens) makes it affordable to run the panel 3× per variant and per model. Include a `no_match` tool whose description explicitly names plausible out-of-scope domains ("general coding questions, git operations, planning...") so near-miss probes have a legitimate target instead of being forced onto the least-bad skill. Reserve the subagent panel below for the final pre/post comparison, where the realistic harness listing matters.
 
 For each probe, spawn an independent subagent (Agent tool) given:
 - a skill listing — the target skill's name + description verbatim, plus 10-15 plausible confuser skills with their real descriptions
@@ -44,6 +46,12 @@ When changing a description, re-run the same panel before and after. Never compa
 
 Selection is stochastic: before treating a single surprising result as signal, re-run that probe 3× on both the old and new description with identical wording. A probe that flips occasionally under both versions is borderline by design — note its false-positive rate in `probes.yaml` rather than chasing it with description changes.
 
+For audit/change gating, compute a combined pass rate across all probe families (trigger + near-miss + tier-sufficiency); a change may not ship below 90% or below the pre-change rate, whichever is higher.
+
+### Tier-Sufficiency Probes (skills with references only)
+
+For each reference, write 2-4 queries labeled `answerable_from_body: true|false`. Give a model ONLY the SKILL.md body plus the query and two tools — `answer_from_body` and `need_reference` — and assert the labeled tool is called (same cheap tool-call setup as above). A `true` query that routes to `need_reference` means SKILL.md lost load-bearing content to a reference; a `false` query answered from the body means the reference may be dead weight. This is the quantitative form of the SKILL.md/references boundary and the natural regression gate for audit cuts that move content between tiers. (For gateway-style skills whose SKILL.md is a routing table over many references, the same setup with one tool per reference also tests internal routing.)
+
 ### Cross-Harness Coverage
 
 Skill selection is harness- and model-dependent: Codex truncates long descriptions first and routes with a different model, so an F1 of 1.0 under Claude does not transfer. If the skill is installed for both harnesses, run the panel for both:
@@ -52,6 +60,8 @@ Skill selection is harness- and model-dependent: Codex truncates long descriptio
 - **Codex**: run each probe through `codex exec --skip-git-repo-check -s read-only '<listing + probe + JSON answer instruction>'` (verified working; ~30s and ~13k tokens per probe), or graduate `tests/probes.yaml` to superpowers-bench, which has codex conditions built in.
 
 Tune the description to satisfy the weaker harness — and re-run *both* panels after any description change, since a fix for one can regress the other.
+
+When panels disagree across harnesses/models, triage by agreement: a probe failing under **all** models indicts the description (or the probe); a probe failing under **one** model is that model's routing quirk — record it in probes.yaml with the failing model rather than distorting the description to satisfy an outlier, unless that model is the primary harness.
 
 ## Adherence Checks
 
