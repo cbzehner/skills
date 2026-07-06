@@ -1,6 +1,6 @@
 ---
 name: git
-description: Advanced git workflows — absorb, stacking, bisect, worktrees, conflict resolution, commit cleanup. Use when user mentions stacking PRs, split PR, fixup, absorb, bisect, regression, worktree, rebase conflict, messy commits, clean up history, or when creating a PR with WIP commits. Also triggers on merge conflicts and bad rebase recovery.
+description: Advanced git workflows — absorb, stacking, bisect, worktrees, conflict resolution, commit cleanup. Use when user mentions stacking PRs, split PR, fixup, absorb, bisect, regression, worktree, rebase conflict, messy commits, clean up history, or when commit history needs cleanup before a PR. Also triggers on merge conflicts and bad rebase recovery. History and workflow surgery only — the PR/delivery flow itself belongs to finish-task.
 argument-hint: "[workflow or situation description]"
 arguments:
   - workflow

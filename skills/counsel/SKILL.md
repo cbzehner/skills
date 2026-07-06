@@ -5,7 +5,8 @@ description: >-
   conversational interrogation, adversarial critique, premortem analysis,
   external model counsel, comparison of approaches, or a high-leverage novel
   addition to an already coherent plan. Also use when the user says "magi" or
-  asks to run a multi-model panel.
+  asks to run a multi-model panel. Operates on thinking, plans, and decisions —
+  reviewing a concrete diff, branch, or PR belongs to the review skill.
 argument-hint: "[--interview|--adversarial|--panel|--wildcard] [question or plan]"
 arguments:
   - request

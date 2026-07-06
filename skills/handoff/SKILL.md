@@ -4,7 +4,9 @@ description: >-
   Write a clipboard-ready prompt to delegate a task to another agent or
   fresh session. Use when the user says "handoff", "write a handoff",
   "delegate this", "give me a prompt for another agent", or wants a
-  portable, path-free prompt that another model can pick up cold.
+  portable, path-free prompt that another model can pick up cold. Forward
+  transfer only — durable project facts belong to repo-memory; recalling past
+  sessions belongs to seance.
 argument-hint: "[short task title]"
 arguments:
   - task

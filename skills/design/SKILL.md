@@ -4,7 +4,8 @@ description: >-
   Route standards-first design work to the right focused guidance. Use for
   design critique, visual polish, UX flows, accessibility, content, information
   architecture, service design, precedent study, lightweight design language
-  extraction, or static HTML/CSS prototypes.
+  extraction, or static HTML/CSS prototypes. For reviewing an existing artifact
+  through a design or accessibility lens, use the review skill.
 argument-hint: "[mode or design task]"
 arguments:
   - task

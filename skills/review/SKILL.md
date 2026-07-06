@@ -5,7 +5,9 @@ description: >-
   architecture review, complexity/simplification review, security review,
   design or accessibility review, docs review, spec alignment review, release
   readiness, deep review of a PR or bug fix, or asks to review a branch/diff/plan
-  with a specific lens.
+  with a specific lens. Report-only: produces findings without applying fixes.
+  Fix-applying sweeps belong to complexity-guard; critique of plans or ideas via
+  external models belongs to counsel.
 argument-hint: "[--as complexity|architecture|security|design|accessibility|docs|spec|release|deep] [target]"
 arguments:
   - request

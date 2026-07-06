@@ -7,7 +7,6 @@ description: >-
   Playwright, agent-browser, chrome-devtools-axi, inspect a URL, click/fill a
   page, check a site, capture a screenshot/video, compare visual output, scrape
   page content, debug console/network/UI issues, or verify an app in practice.
-  Detects installed tools, routes by capability, handles auth, and cleans up.
 argument-hint: "[url or task description]"
 arguments:
   - url_or_task

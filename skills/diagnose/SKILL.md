@@ -3,8 +3,7 @@ name: diagnose
 description: >-
   Debug failures systematically. Use when tests fail, behavior regressed,
   errors are unclear, the user says diagnose/debug/root cause/reproduce, or work
-  is stuck due to an unknown cause. Focus on reproduce, minimize, hypothesize,
-  instrument, fix, and regression-test.
+  is stuck due to an unknown cause.
 argument-hint: "[failure, command, issue, or symptom]"
 arguments:
   - failure
