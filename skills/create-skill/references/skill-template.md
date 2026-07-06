@@ -12,6 +12,7 @@ Most important field — the host agent uses the description alone to decide whe
 - Describe the durable input condition, not only sample phrases. For example, "when purpose, audience, workflow, constraints, or acceptance criteria are unclear" is stronger than a list of app-building prompts.
 - Target under ~350 characters (hard limit 1024), trigger words front-loaded — but prioritize trigger coverage over brevity
 - State WHEN to trigger, not a summary of the workflow — a workflow-summary description tempts the agent to follow the description alone and skip reading the body
+- If sibling skills share phrase space, differentiate — name what this skill does NOT own and which sibling owns it (e.g. "reviewing a diff belongs to review"). Mutual exclusion works best when both siblings state it.
 
 ## Instruction Language
 

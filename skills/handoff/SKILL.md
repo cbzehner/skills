@@ -64,6 +64,8 @@ If the user gave a short label, infer the rest from current repo, branch, recent
 
 Just enough for a fresh agent to orient — repo identity, relevant module/symbol names, known symptoms, constraints, non-goals. Do not perform the receiving agent's independent review for them.
 
+State of the work must come from the git/gh commands below, not from conversation memory — a handoff built from the chat story sends the next agent the wrong way with false confidence.
+
 If the handoff intentionally changes model tier or reasoning effort, include the
 reasoning as a constraint. For Agent Platform SDLC work, use the counsel panel
 matrix: Fable is an escalation reviewer only and should not be handed off above
@@ -105,7 +107,9 @@ I want to discuss and possibly work on: <short task title>
 Context:
 - <portable repo/product anchor — owner/name, package, product>
 - <what triggered this task — issue, PR, observed behavior, user report>
-- <known current state — branch name, PR URL, issue URL>
+- Verified (from git/tools this session): <branch, PR state, test status>
+- Assumed / unverified: <anything known only from conversation memory>
+- Dead ends already ruled out: <approaches tried and why they failed>
 - <important constraints, non-goals, ownership boundaries>
 
 Before any implementation:
@@ -119,9 +123,10 @@ Task:
 - <what to investigate or implement if the review supports it>
 - <expected behavior or decision criteria>
 - <non-goals>
+- <files, modules, or behaviors explicitly not to touch>
 
 Validation:
-- <focused tests, commands, or live proof expected>
+- <the exact command(s) that must pass, verbatim — not "tests should pass">
 - <what evidence should be included in the response>
 - <what is explicitly not required>
 
@@ -135,6 +140,7 @@ Output:
 ## Quality Bar
 
 - **No invented facts.** Anything you state as fact must come from the conversation, the repo, or a tool call. Mark inferred items "likely" or "unverified."
+- **Dead ends are the highest-value content.** They are the one thing the receiver cannot reconstruct from code or git; include every ruled-out approach, even when it makes the prompt longer.
 - **No path leakage.** Re-scan the final prompt. Rewrite any accidental path as a symbol, module, command, URL, or search string.
 - **Right-sized context.** Enough for a fresh agent to orient; not a brain dump. If the prompt is over ~80 lines, you are dumping.
 - **Review-first framing.** First real instruction to the receiving agent is to review and decide — not to execute.
