@@ -23,15 +23,15 @@ probes:
   # Near-miss: debugging an unexplained failure -> diagnose
   - prompt: "tests/test_export.py started failing after I bumped pandas to 2.3 and the error message makes no sense. Figure out what's actually going on."
     expected_skills: ["diagnose"]
-  # Near-miss: apply simplification fixes, not just report -> simplify
+  # Near-miss: apply focused simplification fixes, not just report -> complexity-guard
   - prompt: "src/lib/queue.ts got messy — collapse the three near-identical handlers into one and clean up the dead branches while you're in there."
-    expected_skills: ["simplify"]
+    expected_skills: ["complexity-guard"]
   # Near-miss: ship/PR flow -> finish-task
   - prompt: "I'm done with feature/payment-retries. Wrap it up and open a PR against main with a decent description."
     expected_skills: ["finish-task"]
-  # Near-miss: confirm a change works by running it -> verify
+  # Near-miss: direct localhost UI interaction -> browser
   - prompt: "Can you start the app and confirm the new dark mode toggle on localhost:5173 actually persists after a refresh?"
-    expected_skills: ["verify"]
+    expected_skills: ["browser"]
   # Near-miss: adversarial critique of an approach, no artifact -> counsel
   - prompt: "I'm torn between Postgres LISTEN/NOTIFY and Redis streams for the job queue. Poke holes in both options and tell me which one survives."
     expected_skills: ["counsel"]

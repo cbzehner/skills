@@ -30,9 +30,9 @@ probes:
   # --- near-miss: history cleanup and conflicts -> git ---
   - prompt: "my branch has like 12 WIP commits and a rebase conflict against main, help me untangle the history"
     expected_skills: ["git"]
-  # --- near-miss: run the app and observe one behavior -> verify ---
+  # --- near-miss: prove one behavior without delivery -> validate ---
   - prompt: "run the app and confirm the export button actually downloads a CSV now"
-    expected_skills: ["verify"]
+    expected_skills: ["validate"]
   # --- near-miss: delegate remaining work, not finish it -> handoff ---
   - prompt: "I have to step away — write me a prompt another agent can use to pick up this half-done feature cold"
     expected_skills: ["handoff"]

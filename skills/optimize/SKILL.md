@@ -1,11 +1,11 @@
 ---
 name: optimize
 description: >-
-  Optimize or simplify codebases end-to-end. Use when the user asks to optimize,
-  simplify, reduce, remove complexity, keep working until a stop condition, or
-  turn a broad cleanup goal into safe edits plus scoped follow-up tickets.
-  Differentiator: an execution campaign that applies changes, not a review — for
-  findings-only passes use review or complexity-guard.
+  Run optimization or simplification campaigns across a codebase. Use when the
+  user asks to keep working toward a stop condition, combine safe edits with
+  follow-up tickets, or reduce complexity across a repo/subsystem.
+  Differentiator: campaign loop with validation/follow-ups; narrow code cleanup
+  belongs to complexity-guard, findings-only to review.
 argument-hint: "[goal, scope, or stop condition]"
 license: MIT
 effort: high

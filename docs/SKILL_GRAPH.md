@@ -12,6 +12,7 @@ Active skills:
 - `diagnose`
 - `validate`
 - `review`
+- `optimize`
 - `finish-task`
 - `repo-memory`
 - `design`
@@ -290,6 +291,26 @@ Consumed by:
 
 - All code-writing and code-review workflows.
 - `finish-task`
+
+### `optimize`
+
+Requires:
+
+- A codebase, subsystem, or cleanup goal with a scope and stop condition.
+
+Produces:
+
+- Safe local simplifications, validation evidence, and scoped follow-up tickets for larger design changes.
+
+Routes to:
+
+- `plan` when the cleanup goal is too vague to execute.
+- `diagnose` when checks fail for unclear reasons.
+- `review` or `complexity-guard` when the user only wants findings.
+
+Consumed by:
+
+- Broad simplify, optimize, reduce, and cleanup requests.
 
 ### `repo-memory`
 

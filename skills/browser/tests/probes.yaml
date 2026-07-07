@@ -19,12 +19,12 @@ probes:
     expected_skills: ["browser"]
   # --- near misses ---
   - prompt: "Verify my fix on the feature/rate-limit branch actually works before I push it up."
-    expected_skills: ["verify"]
+    expected_skills: ["validate"]
   - prompt: "Spin up the dev server for ~/Developer/Personal/vault-site so I can poke around in it myself."
-    expected_skills: ["run"]
+    expected_skills: []
   - prompt: "Write a Playwright spec covering the password-reset flow and put it in tests/e2e/reset.spec.ts."
     expected_skills: []
   - prompt: "Summarize the main points of https://martinfowler.com/articles/exploring-gen-ai.html for me."
     expected_skills: []
   - prompt: "Do a deep dive comparing the current headless automation frameworks and give me a cited writeup on which one to standardize on."
-    expected_skills: ["deep-research"]
+    expected_skills: []

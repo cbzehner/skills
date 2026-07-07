@@ -32,9 +32,9 @@ probes:
   # Searching existing vault notes -> qmd
   - prompt: "search my vault for that note about rust async runtimes, I think we filed it a while back"
     expected_skills: ["qmd"]
-  # Researching a topic discussed on Twitter -> deep-research
+  # Researching a topic discussed on Twitter -> no active owner
   - prompt: "people on twitter keep arguing about Bun 2.0's compatibility claims — put together a fact-checked report on what's actually true"
-    expected_skills: ["deep-research"]
+    expected_skills: []
   # Modifying the workflow itself -> create-skill
   - prompt: "the twitter bookmark workflow keeps choking on CSV exports with a tweet_text column — update the skill definition so it handles that header"
     expected_skills: ["create-skill"]

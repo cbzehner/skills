@@ -27,15 +27,15 @@ probes:
   # --- near miss: requirements already clear, wants milestones -> plan ---
   - prompt: "We know exactly what the twitter importer needs to do: take the bookmark export JSON and produce categorized notes under vault/twitter/. Help me break that into milestones with acceptance criteria."
     expected_skills: ["plan"]
-  # --- near miss: confirm a finished change works -> verify ---
+  # --- near miss: confirm a finished change works -> validate ---
   - prompt: "I just finished the retry logic in pipeline/worker.ts — run the app and confirm failed jobs actually get retried three times before going to the dead letter queue."
-    expected_skills: ["verify"]
+    expected_skills: ["validate"]
   # --- near miss: failing tests with unclear errors -> diagnose ---
   - prompt: "The vault indexer test suite started failing after yesterday's merge and the error output is useless. Track down the root cause for me."
     expected_skills: ["diagnose"]
   # --- near miss: prove a concrete artifact before shipping -> validate ---
   - prompt: "Check that db/migrations/0042_add_digest_index.sql runs cleanly against a copy of the prod snapshot before I ship it."
     expected_skills: ["validate"]
-  # --- near miss: multi-source written report, not an experiment -> deep-research ---
+  # --- near miss: multi-source written report, not an experiment and no active owner ---
   - prompt: "Put together a sourced writeup comparing the Rust SQLite ORM options out there right now — maintenance activity, async support, who's actually using each."
-    expected_skills: ["deep-research"]
+    expected_skills: []

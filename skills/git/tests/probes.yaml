@@ -33,9 +33,9 @@ probes:
   # Near-miss: failing tests from current change, not a historical regression — diagnose
   - prompt: "test_invoice.py started failing right after my last edit and the assertion error makes no sense to me. Figure out what's actually going wrong."
     expected_skills: ["diagnose"]
-  # Near-miss: reviewing a branch diff, not restructuring it — code-review
+  # Near-miss: reviewing a branch diff, not restructuring it — review
   - prompt: "Before I send my branch to the team, go through the diff against main and flag anything broken or sloppy."
-    expected_skills: ["code-review"]
+    expected_skills: ["review"]
   # Near-miss: worktree vocabulary, but it's a completion/merge-back flow — finish-task
   - prompt: "I'm done with everything in the ../app-wt-notifications worktree — merge it back into the default branch and clean up after."
     expected_skills: ["finish-task"]

@@ -1,5 +1,5 @@
-# Eval 2026-06-09 baseline: F1 0.83 — both 'make sure my fix works' triggers lost to the verify plugin 3/3.
-# Post description fix (evidence/verdict vocabulary + boundary): F1 1.00, recovered 3/3; hand-test near-miss still correctly routes to verify.
+# Eval 2026-06-09 baseline: F1 0.83 — both 'make sure my fix works' triggers lost to the old verify plugin 3/3.
+# Post description fix (evidence/verdict vocabulary + boundary): F1 1.00, recovered 3/3.
 probes:
   # --- should trigger: post-implementation completion check ---
   - prompt: "I just finished wiring up the rate limiter in api/middleware/throttle.ts. Before I move on, can you make sure it actually does what the ticket says and show me exactly what you ran?"
@@ -23,9 +23,9 @@ probes:
   - prompt: "Here's my working tree after the auth refactor. Run whatever this repo expects — tests, typecheck, lint — and tell me honestly whether it's safe to call this done and what you skipped."
     expected_skills: ["validate"]
 
-  # --- near miss: manual hands-on app testing of a PR -> verify ---
+  # --- should trigger: PR verification with a pass/fail claim ---
   - prompt: "Can you verify PR #482 actually works? Start the app and try the dark mode toggle by hand."
-    expected_skills: ["verify"]
+    expected_skills: ["validate"]
   # --- near miss: unexplained failures, root-causing -> diagnose ---
   - prompt: "The integration tests on feature/payments started failing after my rebase and I have no idea why. Can you figure out what's going on?"
     expected_skills: ["diagnose"]

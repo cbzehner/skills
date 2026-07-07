@@ -9,23 +9,40 @@
 # explicit markers; body loading is detected via fingerprints — distinctive
 # SKILL.md body phrases listed one per line in <skill-dir>/tests/fingerprints.txt.
 set -euo pipefail
-NAME="${1:?usage: usage-stats.sh <skill-name>}"
-SKILL_DIR="$HOME/.claude/skills/$NAME"
+NAME="${1:?usage: usage-stats.sh <skill-name> [extra-transcript-dir ...]}"
+shift || true
+if [ -d "skills/$NAME" ]; then
+  SKILL_DIR="skills/$NAME"
+else
+  SKILL_DIR="$HOME/.claude/skills/$NAME"
+fi
 FINGERPRINTS="$SKILL_DIR/tests/fingerprints.txt"
 
 count_sessions() { # <dir> <extended-regex>
   [ -d "$1" ] || { echo 0; return; }
-  grep -rlE "$2" "$1" --include='*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  if command -v rg >/dev/null 2>&1; then
+    rg -l "$2" "$1" -g '*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  else
+    grep -rlE "$2" "$1" --include='*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  fi
 }
 
 count_sessions_fixed() { # <dir> <fixed-string>
   [ -d "$1" ] || { echo 0; return; }
-  grep -rlF "$2" "$1" --include='*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  if command -v rg >/dev/null 2>&1; then
+    rg -lF "$2" "$1" -g '*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  else
+    grep -rlF "$2" "$1" --include='*.jsonl' 2>/dev/null | wc -l | tr -d ' '
+  fi
 }
 
 count_rereads() { # <dir> <fixed-string> — sessions hitting the string 2+ times
   [ -d "$1" ] || { echo 0; return; }
-  grep -rcF "$2" "$1" --include='*.jsonl' 2>/dev/null | awk -F: '$NF > 1' | wc -l | tr -d ' '
+  if command -v rg >/dev/null 2>&1; then
+    rg -cF "$2" "$1" -g '*.jsonl' 2>/dev/null | awk -F: '$NF > 1' | wc -l | tr -d ' '
+  else
+    grep -rcF "$2" "$1" --include='*.jsonl' 2>/dev/null | awk -F: '$NF > 1' | wc -l | tr -d ' '
+  fi
 }
 
 report() { # <label> <transcript-dir> <invoke-regex or "">
@@ -61,3 +78,7 @@ report() { # <label> <transcript-dir> <invoke-regex or "">
 report "Claude Code (~/.claude/projects)" "$HOME/.claude/projects" "Launching skill: $NAME|\"skill\": ?\"$NAME\""
 echo
 report "Codex (~/.codex/sessions)" "$HOME/.codex/sessions" ""
+for dir in "$@"; do
+  echo
+  report "Extra transcripts ($dir)" "$dir" ""
+done

@@ -1,6 +1,11 @@
 ---
 name: complexity-guard
-description: Keeps code simple and maintainable. Always use when writing/reviewing code or planning architecture. Owns overengineering sweeps - use when asked to take a pass over a diff, feature, or codebase for bloat, overbuilt machinery, premature abstraction, YAGNI violations, or a simplify/maintainability review, reporting findings with safe fixes applied and earned complexity left alone. For a report-only complexity lens use the review skill; for a goal-driven cleanup campaign with a stop condition use optimize.
+description: >-
+  Keeps code simple as a standing guardrail for code changes and architecture
+  planning. Owns fix-applying overengineering sweeps: bloat, premature
+  abstraction, YAGNI, or simplify/maintainability cleanup with safe fixes. For
+  report-only critique use review; for broad stop-condition campaigns use
+  optimize.
 license: MIT
 effort: low
 ---

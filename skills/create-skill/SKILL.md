@@ -1,13 +1,11 @@
 ---
 name: create-skill
 description: >-
-  Create, update, or audit agent skills and SKILL.md files. Use when the user
-  wants to make a new /command or /skill, improve skill frontmatter or trigger
-  pickup, benchmark whether a skill gets selected, evaluate a skill
-  quantitatively (token cost, trigger F1, behavioral adherence), formalize a
-  repeating workflow into reusable agent automation, prune token bloat, or
-  validate an existing skill. Produces skill definitions, not implementation
-  plans.
+  Create, update, audit, or triage candidate agent skills and SKILL.md files.
+  Use to decide whether an idea should become a skill, make skills or
+  commands, fix trigger pickup, benchmark selection, evaluate token
+  cost/routing/adherence, prune token bloat, or validate existing skills.
+  Produces skill definitions, not implementation plans.
 argument-hint: "[workflow description]"
 arguments:
   - description
@@ -22,6 +20,7 @@ Build skills through interview, not scaffolding.
 
 ## When to Use
 
+- Deciding whether a workflow idea deserves a new skill, existing-skill mode, reference recipe, deterministic tool, or rejection
 - Formalizing a repeatable workflow into a reusable skill
 - User says "make a skill", "slash command", "automate this"
 - Turning a conversation's workflow into something reproducible
@@ -30,7 +29,7 @@ Build skills through interview, not scaffolding.
 ## When NOT to Use
 
 - **One-off scripts**: If the user just needs a bash script or utility, write it directly — don't wrap it in a skill
-- **Configuration changes**: Use `/update-config` for hooks, permissions, env vars, settings.json changes
+- **Configuration changes**: Edit the harness config directly for hooks, permissions, env vars, and settings files
 - **Editing an existing skill**: Read and edit the skill directly — don't re-run the full interview. To audit for token efficiency, use Step 7 below
 - **Documentation**: If the user wants docs, write docs — skills are executable workflows, not reference material
 
@@ -63,19 +62,32 @@ Steps 7-8 are standalone audit and evaluation modes for existing skills.
 
 **Before starting**: Check if the current conversation already contains a workflow the user wants to capture. If so, extract the tools used, the sequence of steps, corrections the user made, and input/output formats observed. Present this as a starting point — the user fills gaps and confirms.
 
+## Step 0: Candidate Fitness Gate
+
+Before creating a new top-level skill, classify the candidate:
+
+- `new-skill`: distinct trigger, artifact, recurring failure mode, and testable behavior not owned elsewhere
+- `existing-skill-mode`: useful workflow that belongs under an active neighboring skill
+- `reference-recipe`: prompt pattern, rubric, or checklist with no unique trigger
+- `deterministic-tool`: script or CLI should exist before prose can reliably help
+- `reject`: one-off, untestable, or likely to increase routing ambiguity
+
+Default to mode, recipe, tool, or reject. Create a new top-level skill only when the candidate has a distinct trigger, distinct artifact, recurring failure mode, and probes that prove its boundary against nearest neighbors.
+
 ## Fast Path From Observed Workflow
 
 Use this path when the current session already contains at least three concrete
 examples, a clear trigger boundary, and observable good/bad outputs:
 
-1. Extract the workflow contract: trigger, required inputs, produced artifact,
+1. Run the Candidate Fitness Gate and record why the candidate should not fold into an existing skill.
+2. Extract the workflow contract: trigger, required inputs, produced artifact,
    evidence, stop condition, and handoffs.
-2. Compare neighboring skills so the new skill owns one narrow job instead of
+3. Compare neighboring skills so the new skill owns one narrow job instead of
    duplicating an existing route.
-3. Write the skill, UI metadata, probes, and body fingerprints in one pass.
-4. Run structural validation and at least one realistic probe or manual routing
+4. Write the skill, UI metadata, probes, and body fingerprints in one pass.
+5. Run structural validation and at least one realistic probe or manual routing
    check.
-5. Report the skill as packaged and whether it has been exercised in a real run.
+6. Report the skill as packaged and whether it has been exercised in a real run.
 
 Fall back to the interview path when examples are thin, the trigger overlaps
 another skill, or the user has not approved the intended behavior.

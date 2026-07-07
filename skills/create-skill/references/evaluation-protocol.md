@@ -4,6 +4,42 @@ Quantitative measurement of a skill's cost, routing, and behavior — without ch
 
 Order checks by determinism: scripts first, probe panels second, LLM judging last and only for subjective qualities.
 
+## Candidate Fitness Gate
+
+Before evaluating skill quality, decide whether the candidate should be a skill at all.
+
+Classify the candidate as one of:
+
+- `new-skill`: distinct trigger, artifact, recurring failure mode, and testable behavior not owned elsewhere
+- `existing-skill-mode`: useful workflow that belongs under an active neighboring skill
+- `reference-recipe`: prompt pattern, rubric, or checklist with no unique trigger
+- `deterministic-tool`: script or CLI should exist before prose can reliably help
+- `reject`: one-off, untestable, or likely to increase routing ambiguity
+
+Required evidence:
+
+| Check | Question |
+|---|---|
+| Neighbor overlap | Which active skills could already handle this? |
+| Distinct trigger | What prompt should select this instead of neighbors? |
+| Distinct artifact | What output does it produce that others do not? |
+| Tool need | Does it require deterministic machinery? |
+| Failure cost | What recurring agent failure does this prevent? |
+| Testability | What trigger, near-miss, and behavior probes prove it works? |
+| Net complexity | Does it reduce ambiguity more than it adds? |
+
+Default to `existing-skill-mode`, `reference-recipe`, `deterministic-tool`, or `reject`. Create a new top-level skill only when the candidate has a distinct trigger, distinct artifact, recurring failure mode, and probes that prove its boundary against nearest neighbors.
+
+For existing skills, run the same gate as a continued-existence check:
+
+- `keep-top-level`: still has a distinct trigger, artifact, and tested boundary
+- `fold-into-neighbor`: another active skill now owns the trigger or artifact
+- `reference-recipe`: useful guidance but no longer needs routing surface
+- `deterministic-tool`: prose should shrink behind a script or CLI
+- `archive`: no clear owner, usage, or current failure mode
+
+Low usage alone is not a reason to archive. Treat usage as a pointer for where to inspect first; rare skills can still be load-bearing when the failure cost is high.
+
 ## Metrics
 
 1. **Token profile** — `scripts/token-profile.sh <skill-dir>`. Reports tokens by load tier: frontmatter (always in the skill listing), SKILL.md (every invocation), references (on demand).

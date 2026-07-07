@@ -33,9 +33,9 @@ probes:
   # --- near miss: skill frontmatter tuning -> create-skill ---
   - prompt: "My new vault-sync skill never gets picked up — can you rework its description and frontmatter so the router actually selects it?"
     expected_skills: ["create-skill"]
-  # --- near miss: code cleanup, not prose -> simplify ---
+  # --- near miss: focused code cleanup, not prose -> complexity-guard ---
   - prompt: "src/parser.ts got really convoluted after the last refactor. Clean it up so it's easier to follow."
-    expected_skills: ["simplify"]
+    expected_skills: ["complexity-guard"]
   # --- near miss: on-site architecture explainer -> how-it-works ---
   - prompt: "I want a page on my blog that walks readers through how the job scheduler works internally, with diagrams that match the site's style."
     expected_skills: ["how-it-works"]

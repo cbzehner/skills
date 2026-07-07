@@ -6,6 +6,6 @@ probes:
   - prompt: "This codebase feels bloated. Figure out what can be deleted, what should move to existing primitives, and keep working through the obvious cleanup."
     expected_skills: ["optimize"]
   - prompt: "Review this PR for overengineering and list what you would cut, but don't edit anything."
-    expected_skills: ["complexity-guard"]
+    expected_skills: ["review"]
   - prompt: "The import job is failing after the dependency upgrade. Find the root cause before we change anything."
     expected_skills: ["diagnose"]

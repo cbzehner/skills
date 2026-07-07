@@ -44,18 +44,32 @@ probes:
       whether it triggers when it should, whether agents actually follow it
     expected_skills: [create-skill]
 
+  candidate_list_triage:
+    prompt: >
+      Review docs/SKILL_CANDIDATES.md and tell me which of these ideas are
+      worth building as new skills, which should fold into existing skills, and
+      which should stay as recipes or tools.
+    expected_skills: [create-skill]
+
+  classify_bookmark_workflow:
+    prompt: >
+      I found this agent workflow idea in my bookmarks. Decide whether it should
+      become a new skill, a mode on an existing skill, a reference recipe, a
+      deterministic script, or something we reject.
+    expected_skills: [create-skill]
+
   # --- near-misses: share vocabulary, need something else ---
 
   near_miss_hook_automation:
     prompt: from now on whenever I stop, run the linter automatically
-    expected_skills: [update-config]
+    expected_skills: []
 
   near_miss_one_off_script:
     prompt: write me a quick bash script to dedupe files in my downloads folder
     expected_skills: []
 
   near_miss_docs:
-    prompt: write up some docs explaining how our deploy pipeline works
+    prompt: add a short troubleshooting note to docs/deploy.md explaining what exit code 143 means
     expected_skills: []
 
   near_miss_typo_edit:
@@ -65,3 +79,7 @@ probes:
   near_miss_token_count:
     prompt: how many tokens does my CLAUDE.md use? feels like it's getting expensive
     expected_skills: []
+
+  near_miss_code_review:
+    prompt: take a hard skeptical look at the diff on my feature/rate-limiter branch and tell me everything that's wrong with it
+    expected_skills: [review]

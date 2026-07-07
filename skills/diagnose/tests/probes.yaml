@@ -26,13 +26,13 @@ probes:
     expected_skills: ["git"]
   # --- near miss: fix already made, wants it confirmed by running the app ---
   - prompt: "I already fixed the login redirect loop in middleware.ts — run the app and make sure the fix actually works before I push."
-    expected_skills: ["verify"]
+    expected_skills: ["validate"]
   # --- near miss: feasibility unknown, wants throwaway experiment not bug hunt ---
   - prompt: "Not sure duckdb can chew through our 10GB parquet files fast enough. Throw together a quick disposable experiment before we commit to it."
     expected_skills: ["spike"]
   # --- near miss: hunting for bugs in a diff, not an observed failure ---
   - prompt: "Before I open the PR, look over my current diff for any correctness bugs I might have missed."
-    expected_skills: ["code-review"]
+    expected_skills: ["review"]
   # --- near miss: recalling how a past session handled the same symptom ---
   - prompt: "I'm pretty sure we hit this exact elasticsearch timeout in a session a few weeks ago. Check what we did back then before we redo the work."
     expected_skills: ["seance"]

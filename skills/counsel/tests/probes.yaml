@@ -33,9 +33,9 @@ probes:
   # --- near-miss: feasibility unknown, wants a throwaway experiment -> spike ---
   - prompt: "Not sure DuckDB can chew through our 50GB of parquet fast enough — can we hack together a quick disposable test before we commit to anything?"
     expected_skills: ["spike"]
-  # --- near-miss: multi-source sourced comparison report -> deep-research ---
+  # --- near-miss: multi-source sourced comparison report with no active owner ---
   - prompt: "Compare the major vector database options on pricing and operational burden and give me a cited writeup I can share with the team."
-    expected_skills: ["deep-research"]
+    expected_skills: []
   # --- near-miss: recalling a past decision from session history -> seance ---
   - prompt: "Didn't we already hash out Redis vs Memcached in another session a few weeks back? Dig up what we decided and why."
     expected_skills: ["seance"]

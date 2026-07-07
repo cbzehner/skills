@@ -1,10 +1,10 @@
 ---
 name: humanize
 description: Make prose sound like a real person wrote it. Use when cleaning up
-  AI-assisted text, documentation, READMEs, product copy, emails, posts, or any
+  or auditing AI-assisted text, docs, READMEs, product copy, emails, posts, or
   writing that feels generic, over-polished, robotic, or detector-shaped. Also
-  trigger on "humanize", "de-slop", "de-slopify", "make this sound human",
-  "less AI", "remove AI patterns", or "this reads like AI wrote it".
+  trigger on "humanize", "de-slop", "make this sound human", "less AI",
+  "remove AI patterns", or "AI wrote it".
 license: MIT
 effort: low
 allowed-tools: Read Edit Write Grep

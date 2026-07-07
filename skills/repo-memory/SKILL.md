@@ -1,10 +1,10 @@
 ---
 name: repo-memory
 description: >-
-  Maintain lightweight per-repo memory without making memory always active. Use
-  when updating a runbook, theory, learnings, durable project facts, or when the
-  user asks what should be remembered for future sessions. Distinct from seance
-  or qmd search: this curates memory artifacts; search tools retrieve history.
+  Maintain lightweight per-repo memory artifacts for durable project facts. Use
+  when updating or recalling repo-local runbooks, theories, learnings, or stable
+  gotchas for future sessions. Not for transcript search, notes-vault search,
+  hooks, or standing agent instructions; use seance, qmd, or direct edits.
 argument-hint: "[runbook|theory|learning|audit|recall] [note or question]"
 arguments:
   - request
@@ -25,7 +25,8 @@ Prefer repo-local files under `.claude/memory/`:
 - `theory.md`: current problem thesis and strategy, rewritten holistically when useful.
 - `learnings.md`: durable lessons from sessions, failures, and reviews.
 
-Stable agent instructions still belong in `CLAUDE.md` or `AGENTS.md`.
+Stable agent instructions still belong in `CLAUDE.md` or `AGENTS.md`. Hooks and
+automation settings belong in the relevant config, not memory.
 
 ## Modes
 

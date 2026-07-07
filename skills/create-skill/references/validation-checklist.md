@@ -94,7 +94,15 @@ Run these checks and report results to user:
 
    **How to apply**: Store the prompts in `<skill-dir>/tests/probes.yaml` (superpowers-bench-compatible: `prompt`, `expected_skills`, optional `trigger_hint`) and the body fingerprints in `<skill-dir>/tests/fingerprints.txt` (one phrase per line — `usage-stats.sh` greps these to measure real body loading across Claude and Codex transcripts). Then run the probes as a live probe panel per [evaluation-protocol.md](evaluation-protocol.md) and report F1. The stored files are what make Step 6 and future re-evaluation cheap instead of reconstructed from scratch.
 
-11. **Graph contract** (for router, replacement, consolidation, or workflow-composing skills):
+11. **Candidate fitness** — before minting a new top-level skill:
+   - Nearest neighboring skills are named
+   - Candidate is classified as `new-skill`, `existing-skill-mode`, `reference-recipe`, `deterministic-tool`, or `reject`
+   - The reason for not folding into an existing skill is explicit
+   - At least one near-miss probe proves the boundary against the nearest neighbor
+
+   **Why**: Good workflow ideas do not automatically deserve routing surface. Classifying candidates first prevents prompt patterns, recipes, and scripts from becoming unnecessary top-level skills.
+
+12. **Graph contract** (for router, replacement, consolidation, or workflow-composing skills):
    - Required inputs are explicit
    - Produced artifact/decision/state is explicit
    - `## Handoffs` exists and routes missing input to another skill or workflow
@@ -120,6 +128,7 @@ Run these checks and report results to user:
 | No forbidden patterns    | PASS   |                             |
 | Durable artifacts        | N/A    | Skill doesn't produce docs  |
 | Triggerability harness   | PASS   | 3 triggers, 2 anti-triggers |
+| Candidate fitness        | PASS   | Classified as new-skill     |
 | Graph contract           | PASS   | Requires/produces/handoffs clear |
 ```
 

@@ -23,7 +23,7 @@ probes:
   - prompt: "Add what we just learned about the flaky CI runner to this repo's durable memory so future sessions don't trip on it again."
     expected_skills: ["repo-memory"]
   - prompt: "Get me a well-sourced comparison of Restate vs Temporal durability guarantees — I want citations, not vibes."
-    expected_skills: ["deep-research"]
+    expected_skills: []
   - prompt: "I exported my X bookmarks to bookmarks.json — turn them into categorized insights for the vault."
     expected_skills: ["twitter-digest"]
   - prompt: "Where is parseConfig defined in this repo? I think it's somewhere under src/config/."
