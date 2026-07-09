@@ -7,7 +7,7 @@ description: >
   devil's-advocate review, failure-mode analysis, bias check, tradeoff analysis, assumption
   surfacing, or argument evaluation. Built on the Paul-Elder framework. Use
   `counsel --panel` (`magi` alias) instead for multi-perspective external
-  counsel from Gemini/Codex.
+  counsel from Gemini/Codex/Claude/Grok.
 license: MIT
 effort: high
 metadata:
