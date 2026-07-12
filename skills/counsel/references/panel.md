@@ -1,7 +1,7 @@
 ---
 name: counsel-panel
 description: >-
-  Multi-AI counsel system that queries Gemini, Codex, Claude, and Grok advisors
+  Multi-AI counsel system that queries Gemini, Codex, and Claude advisors
   in parallel, then synthesizes the answers. Use for second opinions, multiple
   viewpoints, plan review, architecture decisions, debugging strategy, API
   research, code review, tradeoff analysis, or alternative perspectives. Trigger
@@ -53,21 +53,19 @@ Start with the host-native local advisor, then add external advisors.
 This is the canonical panel implementation. `magi` is only an alias for this
 workflow; do not hand off to the archived `skill-magi` repository.
 
-#### Canonical panel roster (always these four seats)
+#### Canonical panel roster (Grok temporarily disabled)
 
 | advisor_id | Model | Effort | Transport |
 |---|---|---|---|
 | codex | `gpt-5.6-sol` | `low` | `codex exec` with explicit model + effort override |
 | claude | `claude-fable-5` (alias `fable`) | `low` | host seat or `claude -p` |
-| grok | `grok-4.5` | `high` | `grok -p` |
 | gemini | `gemini-3.1-pro-preview` | n/a | `gemini -p` (no effort flag — model has no effort levels) |
 
 | Host | Local seat | External CLIs (parallel) |
 |---|---|---|
-| Claude Code | Claude (prefer Fable @ low; see host-seat accounting) | Gemini + Codex + Grok |
-| Codex | Codex (prefer `gpt-5.6-sol` @ `low`) | Gemini + Claude + Grok |
-| Grok Build | Grok (prefer `grok-4.5` @ `high`) | Gemini + Codex + Claude |
-| Gemini CLI | Gemini (`gemini-3.1-pro-preview`, no effort) | Claude + Codex + Grok |
+| Claude Code | Claude (prefer Fable @ low; see host-seat accounting) | Gemini + Codex |
+| Codex | Codex (prefer `gpt-5.6-sol` @ `low`) | Gemini + Claude |
+| Gemini CLI | Gemini (`gemini-3.1-pro-preview`, no effort) | Claude + Codex |
 
 **Host-seat accounting:** The roster is what you *request* for external seats. For the host seat, record the session's **actual** model and effort when known (e.g. Claude Code on Sonnet is still the Claude seat, but normalize as that Sonnet id — do not invent `fable@low`). If the host model/effort is not introspectable, persist `model: host-runtime` / `effort: unknown` rather than the target roster values. Never claim fixed roster compliance for a seat unless verified.
 
@@ -119,29 +117,16 @@ claude -p --model claude-fable-5 --effort low --output-format json <<'PROMPT'
 PROMPT
 ```
 
-**Grok transport:** Pin `grok-4.5` at high effort. Prefer `--permission-mode plan` for read-only counsel parity with Gemini.
-
-```bash
-grok -p "$(cat <<'PROMPT'
-[advisor prompt with any characters safely]
-PROMPT
-)" -m grok-4.5 --effort high --permission-mode plan --output-format plain
-```
-
-(`--effort` is an alias for `--reasoning-effort`.)
-
 **On Claude Code:** The host **is** the Claude seat. Do not also shell out to `claude -p`. Record the session's actual model/effort (see host-seat accounting). Run a background agent that:
-1. Queries Gemini, Codex, and Grok in parallel via Bash (heredocs for prompt safety)
+1. Queries Gemini and Codex in parallel via Bash (heredocs for prompt safety)
 2. Formulates its own response as the Claude advisor
 3. Waits for ALL results, then normalizes and synthesizes
 4. If Gemini fails with 429/capacity: wait 60s, retry once, then skip
 5. If ANY external command fails with "denied by policy": STOP — return only the setup message (see Failure Handling)
 
-**On Codex:** The current session is the Codex seat. Prefer `gpt-5.6-sol` @ `low` when launching; if this host session was started on a different model/effort, record what actually ran. Launch Gemini, Claude (Fable), and Grok as external CLIs using heredocs. For Claude JSON output (`claude -p ... --output-format json`), check `is_error` before normalizing.
+**On Codex:** The current session is the Codex seat. Prefer `gpt-5.6-sol` @ `low` when launching; if this host session was started on a different model/effort, record what actually ran. Launch Gemini and Claude (Fable) as external CLIs using heredocs. For Claude JSON output (`claude -p ... --output-format json`), check `is_error` before normalizing.
 
-**On Grok Build:** The current session is the Grok seat. Prefer `grok-4.5` @ `high`; record actual host model/effort. Do not re-invoke `grok -p`. Launch Gemini, Codex, and Claude (Fable) as external CLIs using heredocs.
-
-**On Gemini CLI:** The current session is the Gemini seat (`gemini-3.1-pro-preview`, no effort). Do not re-invoke `gemini -p` for a second Gemini vote. Launch Claude, Codex, and Grok as external CLIs using heredocs.
+**On Gemini CLI:** The current session is the Gemini seat (`gemini-3.1-pro-preview`, no effort). Do not re-invoke `gemini -p` for a second Gemini vote. Launch Claude and Codex as external CLIs using heredocs.
 
 **Preview model IDs:** If a pinned id (e.g. `gemini-3.1-pro-preview`) is retired or rejected, mark that seat `unavailable` — do **not** silently substitute another model.
 
@@ -151,14 +136,13 @@ PROMPT
 - Gemini: "You have native web search. Cite sources."
 - Codex: "You can execute shell commands. Verify claims by running code."
 - Claude: (already has project context when host; external CLI gets only the gathered prompt)
-- Grok: "You have web search/fetch. Cite sources when used."
 
 ### Step 3: Normalize Results
 
 Every advisor response becomes:
 
 ```yaml
-advisor_id: "gemini|codex|claude|grok"
+advisor_id: "gemini|codex|claude"
 model: "resolved model id that actually answered"
 effort: "resolved effort, or n/a for gemini"
 status: "ok|unavailable|blocked|failed"
@@ -203,7 +187,7 @@ Slug: first ~50 chars of question, lowercased, spaces to hyphens, non-alphanumer
 ```markdown
 # Counsel Panel Session: YYYY-MM-DD
 **Question**: [original prompt verbatim]
-**Advisors**: claude (ok, fable@low), gemini (ok), codex (ok, gpt-5.6-sol@low), grok (ok, grok-4.5@high)
+**Advisors**: claude (ok, fable@low), gemini (ok), codex (ok, gpt-5.6-sol@low)
 **Decision**: [optional — concrete choice, if one emerged]
 **Predictions**: [optional — expected outcomes]
 **Confidence**: [optional — high | medium | low]
@@ -221,11 +205,9 @@ Slug: first ~50 chars of question, lowercased, spaces to hyphens, non-alphanumer
 ## Codex
 [same, or failure note]
 
-## Grok
-[same, or failure note]
 ```
 
-Always use `## Synthesis`, `## Claude`, `## Gemini`, `## Codex`, `## Grok` headers (grep anchors for seance). Optional header fields only when synthesis produced a clear decision. Write sections as natural prose. Never persist secrets or credentials.
+Always use `## Synthesis`, `## Claude`, `## Gemini`, and `## Codex` headers (grep anchors for seance). Optional header fields only when synthesis produced a clear decision. Write sections as natural prose. Never persist secrets or credentials.
 
 ## Failure Handling
 
@@ -243,10 +225,10 @@ Always use `## Synthesis`, `## Claude`, `## Gemini`, `## Codex`, `## Grok` heade
 | Pinned model id retired / rejected | Mark seat `unavailable`; no silent model substitution | Preview ids rot |
 
 **Degraded council rules:**
-- 4/4 → full synthesis
-- 2–3/4 → partial synthesis, note who's missing and why
-- 1/4 (host-only) → only if failures are capacity/network; state it's single-advisor
-- Local permission blocked → **STOP**. Show setup message: add `"Bash(gemini *)"`, `"Bash(codex *)"`, `"Bash(grok *)"`, and (when Claude is external) `"Bash(claude *)"` to `.claude/settings.local.json` permissions.allow. (Codex hosts: show sandbox/approval guidance instead.)
+- 3/3 → full synthesis
+- 2/3 → partial synthesis, note who's missing and why
+- 1/3 (host-only) → only if failures are capacity/network; state it's single-advisor
+- Local permission blocked → **STOP**. Show setup message: add `"Bash(gemini *)"`, `"Bash(codex *)"`, and (when Claude is external) `"Bash(claude *)"` to `.claude/settings.local.json` permissions.allow. (Codex hosts: show sandbox/approval guidance instead.)
 
 ## Usage Examples
 
