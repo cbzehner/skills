@@ -1,3 +1,4 @@
 Don't archive an input file until vault writes
 Process exported Twitter/X bookmarks
-Every digest must use a read-only Grok subagent
+Never print cookie contents
+Do not re-process IDs already in processed/

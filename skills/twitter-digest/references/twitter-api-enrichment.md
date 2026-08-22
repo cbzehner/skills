@@ -1,15 +1,20 @@
-# Twitter/X Enrichment via Grok
+# Twitter/X Enrichment (optional)
 
-Some bookmarks are X Articles (Notes) where the `text` field is just a URL like `x.com/i/article/...`. These need enrichment before categorization.
+Some bookmarks are X Articles (Notes) where the `text` field is just a URL like `x.com/i/article/...`. Threads and quotes may also need context before categorization.
 
-Use the mandatory read-only Grok subagent for all X enrichment. It has complete X API access; no browser session, cookie, bearer token, X MCP server, or internal GraphQL request is permitted.
+Enrichment is optional and only for **unseen** items from the delta step. Disk is the source of truth; do not re-fetch bookmarks you already have.
 
-## Required subagent request
+Grok cannot list private bookmarks. Its X tools are public search plus thread fetch. Do not use the official X MCP or X API as a fetch path (pay-per-use, no server-side bookmark delta). Do not call X's internal GraphQL from this skill and do not paste bearer tokens, `auth_token`, `ct0`, or request headers into chat or notes.
 
-Ask the subagent to enrich only the supplied bookmarks. For each source, return:
+## When to enrich
+
+Ask a read-only Grok subagent (or `x_thread_fetch` on this host) only when a **new** bookmark's export text is not enough to categorize: URL-only Articles, missing quote/parent, or a thread that is unreadable from the saved post alone.
+
+Pass only those items. For each, return:
 
 ```yaml
 url: "canonical X URL"
+tweet_id: "numeric id when known"
 author: "display name"
 author_handle: "handle without @"
 date: "ISO-8601 timestamp when available"
@@ -25,5 +30,4 @@ Do not follow links beyond the bookmark's own X post, Article, quoted/parent pos
 
 1. Replace URL-only Article text with the returned full text.
 2. Add quoted, parent, or thread context only when needed for accurate categorization.
-3. If a source is `unavailable` or `not_found`, categorize from the original export and record the limitation in the digest.
-4. If the Grok subagent itself cannot run or lacks X API access, stop the digest. Do not use a fallback X access path.
+3. If a source is `unavailable` or `not_found`, or Grok cannot run, categorize from the original export text and record the gap in the digest. Do not stop the digest.
