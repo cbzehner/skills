@@ -6,6 +6,7 @@ Active skills:
 
 - `counsel`
 - `complexity-guard`
+- `codebase-audit`
 - `spike`
 - `plan`
 - `domain-model`
@@ -291,6 +292,31 @@ Consumed by:
 
 - All code-writing and code-review workflows.
 - `finish-task`
+
+
+### `codebase-audit`
+
+Requires:
+
+- A repository (or named subsystem set) and a request for a read-only
+  data-structure / state-model / ownership audit.
+
+Produces:
+
+- Coverage-contract inventory, verified recommendations, explicit skips,
+  and a dependency-aware ranking. Does not edit the target repo.
+
+Routes to:
+
+- `complexity-guard` when the user asks to apply safe accepted cuts.
+- `plan` when an accepted finding is a schema or public-contract change.
+- `review` when the user actually wanted a role-based report on a diff.
+- `optimize` when the user wants a stop-condition campaign with edits.
+- `domain-model` when a finding is vocabulary or ADR drift.
+
+Consumed by:
+
+- Whole-repo model audits and re-audits after shipped simplifications.
 
 ### `optimize`
 

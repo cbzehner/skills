@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codebase Audit"
+  short_description: "Read-only coverage-contract audit of data structures and ownership"
+  default_prompt: "Use $codebase-audit to inventory subsystems and review data structures, state models, and ownership. Read-only; do not edit."

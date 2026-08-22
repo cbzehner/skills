@@ -1,0 +1,76 @@
+# Trigger probes for codebase-audit.
+probes:
+  whole_repo_data_structures:
+    prompt: >
+      Audit this entire codebase for materially useful simplifications in its
+      data structures, state representation, and ownership. Read-only. Do not
+      edit anything.
+    expected_skills: [codebase-audit]
+
+  coverage_contract:
+    prompt: >
+      Inventory every subsystem, then run bounded reviews with at most two
+      findings each. I want a coverage-contract audit, not a drive-by pass
+      over the files I happened to open.
+    expected_skills: [codebase-audit]
+
+  reaudit_after_cleanup:
+    prompt: >
+      We already shipped the model cleanup PRs. Re-run the whole-repo state
+      model audit on current HEAD and tell me what is still worth doing.
+    expected_skills: [codebase-audit]
+
+  invalid_state_combinations:
+    prompt: >
+      Walk the repo for scattered booleans and nullable fields that allow
+      invalid combinations. Rank the leftovers. Do not implement yet.
+    expected_skills: [codebase-audit]
+
+  mixed_lane_orchestration:
+    prompt: >
+      Run a grok plus claude opus plus codex sol audit of the codebase
+      focusing on data structures and ownership. Coordinator verifies.
+      No edits.
+    expected_skills: [codebase-audit]
+
+  ownership_and_algorithms:
+    prompt: >
+      I want an independent read-only audit of how state is owned and how
+      the algorithms scan it — duplicated lookups, two sources of truth,
+      that kind of thing — across the whole tree.
+    expected_skills: [codebase-audit]
+
+  near_miss_diff_review:
+    prompt: >
+      Look over my current diff for overengineering before I push. I added
+      a generic event bus in src/events.ts and I want a findings-only report.
+    expected_skills: [review]
+    note: Concrete diff + report-only lens belongs to review.
+
+  near_miss_apply_simplifications:
+    prompt: >
+      src/lib/queue.ts got messy — collapse the three near-identical
+      handlers into one and clean up the dead branches while you are in there.
+    expected_skills: [complexity-guard]
+    note: Apply-fixes simplification belongs to complexity-guard.
+
+  near_miss_optimize_campaign:
+    prompt: >
+      Keep simplifying this repo until 7am. Use date to check the time.
+      Safe cuts now, tickets for the bigger model changes.
+    expected_skills: [optimize]
+    note: Stop-condition campaign with edits belongs to optimize.
+
+  near_miss_domain_language:
+    prompt: >
+      Our docs say Incident but the code says Ticket and the API says Case.
+      Align the domain language and update CONTEXT.md.
+    expected_skills: [domain-model]
+    note: Glossary/ADR work belongs to domain-model.
+
+  near_miss_failing_tests:
+    prompt: >
+      tests/test_export.py started failing after I bumped pandas to 2.3 and
+      the error message makes no sense. Figure out what is actually going on.
+    expected_skills: [diagnose]
+    note: Unexplained failure belongs to diagnose.

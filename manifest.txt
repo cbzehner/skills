@@ -1,5 +1,6 @@
 agent-ergonomic-design
 browser
+codebase-audit
 complexity-guard
 counsel
 create-skill
