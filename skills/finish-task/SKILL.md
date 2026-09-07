@@ -19,7 +19,7 @@ allowed-tools: Bash Read Glob Grep
 
 Finish the current coding task with evidence, review, and the delivery path that matches the repo.
 
-This is a finalization workflow, not an implementation loop. If the task is not actually done, stop and report the remaining work instead of packaging an incomplete change.
+This is a finalization workflow. If authorized work remains, return to implementation and finish it before delivery. Report a blocker only when progress requires missing input or unavailable access.
 
 `validate` owns proof that the artifact works. This skill consumes that evidence, adds review gates, and performs repo-appropriate delivery.
 
@@ -62,7 +62,7 @@ Detection order:
 
 Never merge a repository you do not own to its default branch. Create or update a PR and leave merge to normal review/CI.
 
-Guarded Default Branch mode is allowed only when the remote owner is the authenticated user, the repo has no remote, or the user explicitly confirms `--personal-main` after seeing the detected owner/remotes. Pushing the default branch always needs explicit confirmation.
+Guarded Default Branch mode is allowed only when the remote owner is the authenticated user, the repo has no remote, or the user explicitly confirms `--personal-main` after seeing the detected owner/remotes. Pushing the default branch requires explicit user authorization. Reuse authorization already given for the same scope, branch, and remote; ask only when authorization is missing or the destination or scope changes.
 
 ## Workflow
 
@@ -205,7 +205,7 @@ Create commits with messages that explain why the change exists, not only what c
 Load [recipes/delivery.md](recipes/delivery.md) and execute the selected mode:
 
 - **PR:** push branch, create or update draft/non-draft PR, include review/test/screenshot evidence, never merge.
-- **Guarded Default Branch:** commit on default branch or merge the task worktree into it, run post-merge verification, ask before pushing.
+- **Guarded Default Branch:** commit on default branch or merge the task worktree into it, run post-merge verification, and push when authorized for that scope and destination.
 
 Create a backup branch before rebasing, force-pushing, or merging across worktrees.
 
@@ -249,7 +249,7 @@ Keep it short. Include blockers plainly when delivery could not complete.
 - `--personal-main`: Request guarded default-branch delivery after repo metadata is shown.
 - `--skip-screenshots`: Skip screenshots only when the user explicitly requests it or the change has no visual surface.
 - `--upload`: Request GitHub screenshot upload. Private/work repos still require public-URL acknowledgement.
-- `--yes`: Continue through non-destructive delivery steps. Still stop for default-branch pushes, force-pushes, cross-worktree merge conflicts, destructive cleanup, failed validation, or external screenshot upload without privacy acknowledgement.
+- `--yes`: Continue through non-destructive delivery steps. Still stop for default-branch pushes without existing authorization, force-pushes without explicit authorization, cross-worktree merge conflicts, destructive cleanup, failed validation, or external screenshot upload without privacy acknowledgement.
 
 ## Companion Recipes
 

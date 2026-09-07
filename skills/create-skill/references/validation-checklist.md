@@ -107,7 +107,7 @@ Run these checks and report results to user:
    - Produced artifact/decision/state is explicit
    - `## Handoffs` exists and routes missing input to another skill or workflow
    - Trigger rules are principle-based, not tied to a one-off migration example
-   - If replacing an existing skill, migration is additive-first unless the user explicitly asked to edit the old skill now
+   - If replacing an existing skill, the migration follows the approved cutover design; parallel paths or compatibility shims exist only when explicitly requested
 
    **Why**: Skills that compose as a web fail when they invent missing direction or silently duplicate another skill's job. A graph contract keeps each skill small and makes routing testable.
 

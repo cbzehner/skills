@@ -48,7 +48,7 @@ Build skills through interview, not scaffolding.
 - **3 examples minimum**: Specificity before abstraction
 - **Principles before examples**: Use examples to discover the boundary, then write the reusable rule in principle-based language
 - **Graph-aware by default**: For skills that compose with other skills, define required inputs, produced artifacts, and handoffs
-- **Additive-first migration**: When consolidating or replacing skills, create the new skill alongside old ones before editing or shimming the old entry points
+- **Migration scope**: Follow the user-approved replacement design. Fully cut over by default; keep parallel paths or compatibility shims only when explicitly requested
 - **Explain the why**: Instructions that explain reasoning outperform rigid MUSTs. The agent is smart — give it context to make judgment calls, not just rules to follow
 - **Progressive disclosure**: Keep SKILL.md lean, split heavy content to reference files
 - **Lean over rigid**: Remove instructions that aren't pulling their weight. If test runs show the agent ignoring a section, cut it rather than adding enforcement
@@ -106,7 +106,7 @@ After examples, synthesize the general boundary. Do not leave the skill defined 
 
 Identify which bundled resources the skill needs beyond SKILL.md. Use the tool check, planning questions, and effort assessment from [references/interview-structure.md](references/interview-structure.md).
 
-If the skill is a router, replacement, consolidation, or part of a larger local workflow, apply [references/graph-and-migration-guidance.md](references/graph-and-migration-guidance.md) before writing it. Define its graph contract and use additive-first migration.
+If the skill is a router, replacement, consolidation, or part of a larger local workflow, apply [references/graph-and-migration-guidance.md](references/graph-and-migration-guidance.md) before writing it. Define its graph contract and follow the approved migration scope.
 
 ---
 

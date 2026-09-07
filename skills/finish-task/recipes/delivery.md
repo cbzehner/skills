@@ -14,7 +14,7 @@ Use `git push --force-with-lease --force-if-includes`, never plain `--force`.
 
 Do not push or merge if high-severity review findings remain unresolved.
 
-Do not push the default branch automatically. Ever. Print the exact command and wait for explicit user confirmation.
+Push the default branch only with explicit user authorization for the same scope, branch, and remote. Reuse authorization already given in the session. If it is missing or the scope or destination changes, print the exact command and ask before pushing.
 
 ## PR Mode
 
@@ -118,7 +118,7 @@ git branch --show-current
 
 2. Stage intended files and commit.
 3. Run post-commit verification if not already run on the committed state.
-4. Do not push the default branch automatically. Print `git push origin "$DEFAULT_BRANCH"` as the next command and wait for explicit user confirmation.
+4. Run `git push origin "$DEFAULT_BRANCH"` when already authorized for this scope and destination. Otherwise show the command and ask for authorization.
 
 ### Feature Branch In Same Worktree
 
@@ -156,7 +156,7 @@ git merge --ff-only <task-branch>
 ```
 
 4. Run post-merge verification from the default-branch worktree.
-5. Do not push the default branch automatically. Print `git push origin "$DEFAULT_BRANCH"` and wait for explicit confirmation.
+5. Run `git push origin "$DEFAULT_BRANCH"` when already authorized for this scope and destination. Otherwise show the command and ask for authorization.
 6. Remove the task worktree only when the user asked or after confirming no extra files remain:
 
 ```bash

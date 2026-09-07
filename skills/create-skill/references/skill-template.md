@@ -7,7 +7,7 @@ Most important field — the host agent uses the description alone to decide whe
 - Write in third person ("Processes files..." not "I can help...")
 - Include trigger words matching how users naturally phrase requests
 - State WHAT it does AND WHEN to use it
-- Be deliberately "pushy" — agents tend to under-trigger. Add phrases like "Use this whenever the user mentions X, even if they don't explicitly ask for it"
+- Use precise task conditions. A topic mention alone must not trigger a workflow; distinguish nearby requests that need a different skill
 - Prefer principle-based triggers over examples tied to the current repo or migration. Use examples in tests, not as the main boundary.
 - Describe the durable input condition, not only sample phrases. For example, "when purpose, audience, workflow, constraints, or acceptance criteria are unclear" is stronger than a list of app-building prompts.
 - Target under ~350 characters (hard limit 1024), trigger words front-loaded — but prioritize trigger coverage over brevity
@@ -27,7 +27,7 @@ Most important field — the host agent uses the description alone to decide whe
 ```yaml
 ---
 name: skill-name
-description: [third-person, trigger-word-rich, WHAT + WHEN, deliberately pushy, under ~350 chars]
+description: [third-person, precise task condition, WHAT + WHEN, under ~350 chars]
 argument-hint: "[expected arguments]"
 allowed-tools: [tools identified in Step 2]
 # effort: high          # skill-routing metadata: low|medium|high, not provider reasoning effort

@@ -21,20 +21,11 @@ Prefer handoffs through artifacts over hidden conversation state:
 - screenshots and review reports
 - `.claude/memory/*.md`
 
-## Additive-First Migration
+## Migration Scope
 
-When replacing or consolidating existing skills, do not edit the source skills first.
+Follow the user-approved replacement design. Fully cut over to the canonical skill by default; keep parallel paths, deprecated aliases, or compatibility shims only when explicitly requested.
 
-Safe migration order:
-
-1. Create the new router or canonical skill as an additive repo.
-2. Install it alongside the existing skills.
-3. Leave old skills untouched as the known-good baseline.
-4. Use the new skill manually on real work.
-5. Track routing misses, vague behavior, and repeated wins.
-6. Only then convert old skills into shims, archive them, or remove their symlinks.
-
-This avoids losing battle-tested behavior while still testing a simpler skill surface.
+Before replacing a skill, inspect its callers and preserve required behavior in the replacement. Update affected references and discovery links within the approved scope, then validate the replacement and check that obsolete entry points no longer remain. Preserve unrelated user changes.
 
 ## Trigger Writing
 

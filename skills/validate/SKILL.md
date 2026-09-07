@@ -154,7 +154,9 @@ Declare a remote/CI-parity requirement explicitly when any of the following is t
 - The repo's documented validation path is CI-bound and there is no local equivalent.
 - A required secret/credential is intentionally absent from the local environment.
 
-When remote validation is required, do not silently downgrade to a weaker local check. Emit a `blocked` verdict with the explicit reason and the suggested remote command:
+When remote validation is required, do not silently downgrade to a weaker local check. Use the documented remote validation path when available and authorized. Inspect existing runs or trigger the required check within the user's authorized scope, then collect its result before giving a verdict. Validation does not authorize deployment or other unrelated writes.
+
+Emit a `blocked` verdict only when access, authorization, tooling, or an external dependency prevents the required check from running or completing. Include the explicit blocker and the documented remote command:
 
 ```markdown
 Validation: blocked
