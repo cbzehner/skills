@@ -103,7 +103,7 @@ Q: Does this skill need external tools?
 - What must it NEVER do? (hard constraints — but explain why, not just the rule)
 - Does it need dynamic context at invocation time? (current branch, project state, etc.)
 - Does it bundle supporting files? (scripts -> `scripts/`, reference docs -> `references/`, templates -> `assets/`)
-- Is this replacing or consolidating an existing skill? If yes, create it additively first; do not edit the old skill until real usage proves the new route works.
+- Is this replacing or consolidating an existing skill? Follow the approved cutover design; keep parallel paths or compatibility shims only when explicitly requested. Validate required behavior and update affected callers.
 - Does this skill need a `## Handoffs` section? If it composes with other skills, the answer is yes.
 - Are any trigger rules example-led? Rewrite them as principle-based boundaries, then keep the examples in tests.
 
