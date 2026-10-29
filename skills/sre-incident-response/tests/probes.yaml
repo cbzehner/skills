@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {"prompt": "Checkout errors are affecting customers right now. Start an incident record, coordinate responders, and choose a reversible mitigation.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "We rolled back and the process is green, but users still see failures. Decide what evidence would actually establish recovery.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "Turn the outage timeline into a blameless postmortem with impact, contributing conditions, and follow-ups we can verify.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "For a 30-day SLO, does six hours at a 1x error-budget burn consume 5 percent? Check the math and assumptions before setting an alert.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "Two responders are making competing changes during an incident. Establish change ownership, update cadence, and a shared mitigation record.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "Review whether our multiwindow SLO paging thresholds reflect budget consumption and variable request traffic, not just a copied example.", "expected_skills": ["sre-incident-response"]},
+    {"prompt": "One development VM's systemd worker fails at startup. Inspect its exit status and journal; no customers are affected.", "expected_skills": ["linux-systemd"], "note": "An isolated host failure does not need incident coordination."},
+    {"prompt": "Fix a test-only JavaScript date parser that fails for leap years.", "expected_skills": [], "note": "An ordinary application regression is outside incident response."},
+    {"prompt": "Validate the generator output for a new .container Quadlet before starting it on a development machine.", "expected_skills": ["podman-quadlet"], "note": "Container-unit authoring is not an active incident."},
+    {"prompt": "List the attached firewall rules for a Hetzner Cloud staging server. This is a read-only inventory request, not an outage.", "expected_skills": ["hetzner-operations"], "note": "Provider inspection has its own narrow owner."}
+  ]
+}

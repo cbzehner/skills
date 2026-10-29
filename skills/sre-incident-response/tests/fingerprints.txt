@@ -1,0 +1,2 @@
+Mitigation and root-cause proof are separate outcomes.
+For variable traffic, do not present the time-ratio approximation as exact.

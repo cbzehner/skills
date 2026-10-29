@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {"prompt": "Write a rootless Podman Quadlet for a small HTTP container with a named data volume and persistent user-manager startup.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "The Podman generator rejects our .container file and no service is created. Check the installed version and unsupported keys.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "Connect this .container Quadlet to a .network and .volume source without confusing file references with runtime resource names.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "Our rootless Quadlet stops after logout. Inspect the user manager and lingering, but do not enable anything yet.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "Plan an image-digest rollback for this systemd-managed Podman workload without claiming it will undo its database migration.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "Podman runs in a Linux VM from my Mac. Find where the Quadlet sources and generator actually execute before installing a container unit.", "expected_skills": ["podman-quadlet"]},
+    {"prompt": "A plain systemd backup timer has failed; there is no container or Podman involved. Capture status and recent logs.", "expected_skills": ["linux-systemd"], "note": "Generic service runtime belongs to the Linux skill."},
+    {"prompt": "Evaluate our Home Manager module and correct its option types before building the Nix flake.", "expected_skills": ["nix-infrastructure"], "note": "No container-generator semantics are involved."},
+    {"prompt": "Update this Docker Compose file's environment variable interpolation. We are not migrating to Podman or systemd.", "expected_skills": [], "note": "Do not turn a Compose edit into a Quadlet migration."},
+    {"prompt": "Tune a Kubernetes Deployment readiness probe; there is no Quadlet or Podman kube unit in this project.", "expected_skills": [], "note": "Plain Kubernetes is outside this skill."}
+  ]
+}

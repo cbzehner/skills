@@ -1,0 +1,2 @@
+Capture the failure state before a restart destroys the evidence.
+A failed `status` command can be evidence, not a broken diagnostic.

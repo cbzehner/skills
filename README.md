@@ -2,7 +2,9 @@
 
 Agent skills for Claude Code, Codex, and compatible harnesses — consolidated from the former one-repo-per-skill `skill-*` layout.
 
-Active skills live under `skills/`, controlled by `manifest.txt`. Retired skills live under `archived/` for reference and revival; they are not installed.
+Skills live under `skills/`. `manifest.txt` selects the default workflow collection;
+`infrastructure-manifest.txt` selects the independent infrastructure pack. Retired
+skills live under `archived/` for reference and revival; they are not installed.
 
 ## Install
 
@@ -19,26 +21,34 @@ Targets and options:
 - `./install.sh agents` installs to `~/.agents/skills`
 - `./install.sh opencode` installs to `~/.config/opencode/skills`
 - `./install.sh claude seance qmd` installs only the named skills
+- `./install.sh agents --manifest infrastructure-manifest.txt` installs only the infrastructure pack for shared discovery (including Pi and Codex)
+- `./install.sh claude --manifest infrastructure-manifest.txt` installs the same pack for Claude
+- `--manifest <file>` selects a repository-relative or absolute manifest, without also supplying skill names; empty manifests install nothing
 - `--copy` copies instead of symlinking; `--force` replaces non-symlink destinations
+
+The infrastructure pack covers Nix, Hetzner, Linux/systemd, Podman/Quadlet, and
+incident response without enabling the default workflow collection. See
+[its scope, validation, and removal notes](docs/infrastructure.md).
 
 Manual install works too: symlink or copy any `skills/<name>` directory into your agent's skills directory.
 
 ## Layout
 
 ```text
-skills/<name>/SKILL.md        # active skills (see manifest.txt)
+skills/<name>/SKILL.md        # available skills (selection is manifest-specific)
 skills/<name>/references/     # on-demand reference files
 skills/<name>/tests/          # trigger-selection probes (probes.yaml) and fingerprints
 archived/<name>/              # retired skills, kept for reference
 docs/                         # library-level docs (skill graph, plans)
-manifest.txt                  # the active set install.sh symlinks by default
+manifest.txt                  # the workflow set install.sh symlinks by default
+infrastructure-manifest.txt   # the separately selected infrastructure set
 ```
 
 Each skill is self-contained: `SKILL.md` is its readme, and skills that borrow from external libraries carry their own Credits section.
 
 ## Evaluation
 
-Skills are eval-gated using the `create-skill` skill's Step 8 protocol: token profiles by load tier, trigger-selection F1 from the `tests/probes.yaml` probe panels, and behavioral adherence against pre-registered criteria. Baseline results live in probe file header comments.
+Skills are eval-gated using the `create-skill` skill's Step 8 protocol: token profiles by load tier, trigger-selection F1 from the `tests/probes.yaml` probe panels, and behavioral adherence against pre-registered criteria. Baseline results live in probe file header comments or a linked pack report; the [infrastructure report](docs/infrastructure.md#evaluation-snapshot--2026-10-28) records its model, selection results, behavioral revision, and runtime limitations.
 
 ## Public Notes
 

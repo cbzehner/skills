@@ -1,0 +1,2 @@
+The Quadlet source is durable; the generated service is diagnostic output.
+Do not run `systemctl enable` on generated

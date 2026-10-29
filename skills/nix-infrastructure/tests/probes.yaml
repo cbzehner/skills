@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {"prompt": "Our nix-darwin rebuild rejects a Home Manager Git option. Check the locked versions and fix the right module without activating anything.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "Is the package attribute for ripgrep available on aarch64-darwin at our flake.lock revision? Add it declaratively if so.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "Update only the terminal package flake input and make sure the other locked dependencies stay unchanged.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "I need to build the selected NixOS host output before applying an SSH configuration change remotely. Work out the safe validation and recovery steps.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "Home Manager owns this configuration file, but editing the installed symlink fails as read-only. Find its source and make the change there.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "Can the last nix-darwin generation undo a database migration too? Review what the rollback would and would not restore.", "expected_skills": ["nix-infrastructure"]},
+    {"prompt": "The Linux worker service is repeatedly exiting with status 1. Inspect its recent journal before we restart it.", "expected_skills": ["linux-systemd"], "note": "Runtime evidence, not a Nix configuration change."},
+    {"prompt": "The .container file exists but no generated systemd service appears after daemon-reload. Check the Podman generator.", "expected_skills": ["podman-quadlet"], "note": "Quadlet generation owns this failure."},
+    {"prompt": "The server is healthy but its Hetzner Cloud firewall no longer permits our office IP. Inspect the provider rules first.", "expected_skills": ["hetzner-operations"], "note": "The provider control plane is the requested surface."},
+    {"prompt": "This JavaScript date formatter returns yesterday for midnight UTC. Add a regression test and fix it; the Nix development shell works fine.", "expected_skills": [], "note": "Application debugging is not infrastructure configuration."}
+  ]
+}

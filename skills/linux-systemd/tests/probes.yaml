@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {"prompt": "worker.service keeps restarting on Debian. Capture a bounded journal window and identify the exit cause before changing it.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "My systemd user timer never fires after login. Check which user manager and timer state we are actually inspecting.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "The Linux host reports no space left even though df shows free gigabytes. Investigate filesystem and inode pressure without deleting logs.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "api.service is active but nothing listens on its expected socket. Correlate the unit state, listeners, and recent errors.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "Does After=database.service start the database too? Review this plain systemd unit's ordering, requirements, and readiness behavior.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "A service drop-in added a memory limit yesterday and now the process is killed under load. Verify the effective unit properties and OOM evidence.", "expected_skills": ["linux-systemd"]},
+    {"prompt": "A rootless Podman .container source is not generating any service. Find the generator error before we touch systemd state.", "expected_skills": ["podman-quadlet"], "note": "Quadlet parsing and generation come first."},
+    {"prompt": "Edit the NixOS module defining this service and evaluate the exact flake output; no runtime investigation is needed.", "expected_skills": ["nix-infrastructure"], "note": "This is explicitly declarative authoring."},
+    {"prompt": "Coordinate the ongoing customer outage, assign an incident lead, and decide how we will prove recovery across all affected services.", "expected_skills": ["sre-incident-response"], "note": "Incident-wide coordination is not a single-host diagnosis."},
+    {"prompt": "This macOS launchd job never starts. Inspect its plist and launchctl status.", "expected_skills": [], "note": "macOS launchd is outside the Linux/systemd boundary."}
+  ]
+}

@@ -1,0 +1,2 @@
+A public option listing is a lead, not evidence about the locked configuration.
+Rollback restores a generation, not external data

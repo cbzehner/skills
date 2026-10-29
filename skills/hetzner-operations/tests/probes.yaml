@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {"prompt": "List the Hetzner Cloud servers in the intended project and confirm which firewall is attached to the staging VM. Do not change it yet.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "Our Robot dedicated server needs rescue access. Check the correct control plane and outline recovery without reinstalling anything.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "Before resizing this Hetzner Cloud instance, confirm the resource ID, price impact, disk constraints, and whether we can reverse the change.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "Does the enabled Hetzner server backup include its attached data volume? Inspect the coverage before calling it a recovery plan.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "A Hetzner create request timed out. Check the provider action and inventory before trying again so we do not provision a duplicate.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "Replace one source IP in a Hetzner Cloud firewall, but preserve SSH access and verify the project first.", "expected_skills": ["hetzner-operations"]},
+    {"prompt": "The app on our Hetzner VM is OOM-killed by systemd. Collect its unit limits and kernel messages; no cloud resources need changing.", "expected_skills": ["linux-systemd"], "note": "Hosting location alone must not trigger provider operations."},
+    {"prompt": "Review the NixOS module that declares our SSH daemon settings and build it before activation; the provider firewall is unchanged.", "expected_skills": ["nix-infrastructure"], "note": "Declarative configuration owns the change."},
+    {"prompt": "Users across three regions cannot check out. Coordinate incident response, impact tracking, reversible mitigation, and recovery checks.", "expected_skills": ["sre-incident-response"], "note": "Incident coordination precedes choosing a provider-specific procedure."},
+    {"prompt": "Improve this Python function's variable names; it happens to run on a Hetzner server.", "expected_skills": [], "note": "Unrelated code editing is not a provider operation."}
+  ]
+}
