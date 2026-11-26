@@ -7,7 +7,7 @@ description: >-
   addition to an already coherent plan. Also use when the user says "magi" or
   asks to run a multi-model panel. Operates on thinking, plans, and decisions —
   reviewing a concrete diff, branch, or PR belongs to the review skill.
-argument-hint: "[--interview|--adversarial|--panel|--wildcard] [question or plan]"
+argument-hint: "[--interview|--adversarial|--panel [--full] [--with gemini|codex|claude]|--wildcard] [question or plan]"
 arguments:
   - request
 license: MIT
@@ -24,16 +24,16 @@ Pick exactly one mode first. Load only that reference file, then follow its work
 | Intent | Mode | Load |
 |---|---|---|
 | Clarify a draft, decision, or plan through conversation | `--interview` | [references/interview.md](references/interview.md) |
-| Evaluate reasoning, surface failure modes, or give a direct verdict | `--adversarial` | [references/adversarial.md](references/adversarial.md) |
-| Bring in external model counsel for a decision worth the latency, including "magi" requests | `--panel` | [references/panel.md](references/panel.md) |
+| Evaluate reasoning, surface failure modes, or give a direct verdict (1 seat, solo) | `--adversarial` | [references/adversarial.md](references/adversarial.md) |
+| Bring in external model counsel sized by stakes: 2-seat default (`--panel`) or 3-seat full panel (`--panel --full` / `magi`) | `--panel` | [references/panel.md](references/panel.md) |
 | Add one high-leverage novel idea to an already coherent plan | `--wildcard` | [references/wildcard.md](references/wildcard.md) |
 
 ## Boundaries
 
 - Interview mode asks one question at a time; it does not give a verdict.
 - Adversarial mode gives a verdict; it does not interview unless a blocking ambiguity prevents analysis.
-- Panel mode is for decisions worth external latency; do not use it for trivial questions.
-- `magi` is trigger vocabulary for panel mode, not a separate active skill. Use `counsel --panel`.
+- Panel mode is for decisions worth external latency; do not use it for trivial questions. Size seats to stakes: `--adversarial` (1 seat) for small/reversible choices, `--panel` (2 seats: host + 1 external family) for normal second opinions, and `--panel --full` / `magi` (3 seats; also implied when the prompt names two external families) for architecture kickoffs, irreversible steps, or deadlocks.
+- `magi` is trigger vocabulary for panel mode, not a separate active skill. Use `counsel --panel --full`.
 - Wildcard mode is for plans that are already coherent; do not use it to rescue vague requirements.
 
 ## Handoffs

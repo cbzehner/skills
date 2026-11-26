@@ -16,7 +16,7 @@ Interview the user relentlessly about every aspect of an existing plan or design
 ## When NOT to Use
 
 - **Exploring requirements from scratch** → use `plan --interview`. Planning starts from intent; this mode starts from a draft.
-- **Multi-perspective external counsel** → use `counsel --panel` (`magi` alias). Panel mode gathers parallel opinions; interview mode drives a focused single-thread conversation.
+- **Multi-perspective external counsel** → use `counsel --panel` (2-seat) or `counsel --panel --full` (`magi` alias, 3-seat). Panel mode gathers parallel opinions; interview mode drives a focused single-thread conversation.
 - **Verdict on whether a plan is good** → use `counsel --adversarial`. Adversarial mode gives the verdict; interview mode uncovers blind spots.
 
 ## How
