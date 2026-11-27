@@ -4,6 +4,7 @@ The active shadow skill stack is a graph, not a folder hierarchy. Each skill own
 
 Active skills:
 
+- `development`
 - `counsel`
 - `complexity-guard`
 - `codebase-audit`
@@ -28,11 +29,13 @@ Meta skills:
 ## Graph Rules
 
 1. Start with the user's intent, not the skill name.
-2. Use the skill whose required input is already available.
-3. If required input is missing, route to the skill that can produce it.
-4. Prefer artifacts over hidden context: PRDs, `./plans/*.md`, `CONTEXT.md`, ADRs, screenshots, review reports, memory files.
-5. Do not use routers to invent missing product direction.
-6. Do not edit quarantined skills while evaluating the active graph.
+2. Use `development` for managed end-to-end work; neighboring skills may
+   contribute without becoming another lifecycle authority.
+3. Use the skill whose required input is already available.
+4. If required input is missing, route to the skill that can produce it.
+5. Prefer artifacts over hidden context: PRDs, `./plans/*.md`, `CONTEXT.md`, ADRs, screenshots, review reports, memory files.
+6. Do not use routers to invent missing product direction.
+7. Do not edit quarantined skills while evaluating the active graph.
 
 ## Evidence Convention
 
@@ -56,6 +59,24 @@ Use `.agent/evidence/<run-slug>/` for local proof bundles shared across skills.
 Do not commit `.agent/evidence/` unless the user explicitly asks for an evidence fixture. Skills may link to local paths in final reports, but external upload requires explicit approval.
 
 ## Nodes
+
+### `development`
+
+Requires:
+
+- A software-change source or existing artifacts and a Git repository.
+
+Produces:
+
+- Approved Request and Plan lineage, Candidate evidence, Release, and Observation.
+
+Routes to:
+
+- Bounded specialist skills; managed Review requires `counsel --panel`.
+
+Consumed by:
+
+- End-to-end software changes and resume work.
 
 ### `counsel`
 
@@ -87,7 +108,7 @@ Requires:
 
 Produces:
 
-- PRD/issue body or ralph-compatible `./plans/<slug>.md`.
+- PRD/issue body or standalone `./plans/<slug>.md`.
 
 Routes to:
 
@@ -104,7 +125,6 @@ Consumed by:
 - `review --as spec`
 - `review --as architecture`
 - `repo-memory`
-- future execution via `ralph` when restored or explicitly used.
 
 ### `spike`
 
@@ -164,7 +184,8 @@ Produces:
 Routes to:
 
 - `validate` after a fix needs proof against the original symptom.
-- `plan --ralph` when the fix is too large for one focused change.
+- `development` when the fix needs a managed multi-stage lifecycle.
+- `plan --plan-file` when the user wants a standalone multi-step plan only.
 - `review --as complexity` after a risky or broad fix.
 - `repo-memory learning` when the failure reveals a reusable gotcha.
 
@@ -271,7 +292,8 @@ Routes to:
 
 Consumed by:
 
-- User delivery requests: finish, wrap up, ship, make/update PR, merge worktree, commit to default branch.
+- Unmanaged delivery requests: finish, wrap up, make/update PR, merge a
+  worktree, or commit to a guarded personal default branch.
 
 ### `complexity-guard`
 
@@ -292,7 +314,6 @@ Consumed by:
 
 - All code-writing and code-review workflows.
 - `finish-task`
-
 
 ### `codebase-audit`
 
@@ -362,6 +383,16 @@ Consumed by:
 
 ## Common Flows
 
+### Managed Development
+
+```text
+development Intake
+-> approved Request and Plan
+-> Candidate-bound Build, V&V, and Review
+-> Operator merge
+-> bounded Observe
+```
+
 ### Vague App Request
 
 ```text
@@ -375,11 +406,8 @@ plan --interview
 ### Feature With Fuzzy Language
 
 ```text
-counsel --interview
--> domain-model update
--> plan --ralph
--> validate
--> review --as architecture
+development
+-> optional domain-model audit
 ```
 
 ### Unknown Feasibility

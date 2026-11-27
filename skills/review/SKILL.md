@@ -7,7 +7,8 @@ description: >-
   readiness, deep review of a PR or bug fix, or asks to review a branch/diff/plan
   with a specific lens. Report-only: produces findings without applying fixes.
   Fix-applying sweeps belong to complexity-guard; critique of plans or ideas via
-  external models belongs to counsel.
+  external models belongs to counsel. Advancement of a managed Candidate
+  belongs to development Review.
 argument-hint: "[--as complexity|architecture|security|design|accessibility|docs|spec|release|deep] [target]"
 arguments:
   - request
@@ -40,6 +41,7 @@ The `complexity`, `design`, and `accessibility` rubrics are owned by their home 
 
 ## Handoffs
 
+- Route managed Candidate advancement to `development` Review.
 - If there is no concrete artifact to review, route to `plan`, `design`, or `counsel` based on what is missing.
 - If a finding depends on reproducing an unexplained failure, route to `diagnose`.
 - If a finding requires multi-step implementation work, route to `plan`.

@@ -5,7 +5,9 @@ complexity-guard
 counsel
 create-skill
 design
+development
 diagnose
+domain-launch
 domain-model
 finish-task
 git

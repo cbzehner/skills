@@ -1,12 +1,13 @@
 ---
 name: finish-task
 description: >-
-  Finish coding work end-to-end after implementation is believed complete:
+  Finish unmanaged coding work after implementation is believed complete:
   consume validation evidence, run applicable review gates, capture provenance,
   and deliver through the repo's approved path. Use when the user says finish,
   wrap up, ship it, make a PR, create/update the PR, merge this worktree into
   the default branch, commit directly to the default branch, or asks for a task
-  completion flow.
+  completion flow without Development Request lineage. Managed publication,
+  Review, merge admission, and observation belong to development.
 argument-hint: "[--work-pr|--personal-main] [--skip-screenshots] [--upload] [--yes]"
 arguments:
   - options
@@ -236,6 +237,7 @@ Keep it short. Include blockers plainly when delivery could not complete.
 
 ## Handoffs
 
+- Route managed work with Development lineage back to `development`.
 - Missing or failed proof: route to `validate` or `diagnose`.
 - Broad cleanup discovered during finishing: route to `optimize`; do not fold it
   into delivery.

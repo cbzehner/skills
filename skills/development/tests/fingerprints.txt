@@ -1,0 +1,5 @@
+Agent prose is a claim; exact commits,
+target repository's convention and remain discoverable through Git.
+A changed listed path makes that approval stale.
+Any Candidate change invalidates prior V&V and Review.
+Observe establishes deployed identity before interpreting signals,

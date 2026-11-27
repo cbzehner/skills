@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain Launch"
+  short_description: "Name, buy, configure, and verify Cloudflare domains"
+  default_prompt: "Use $domain-launch to find and launch a domain for this project through Cloudflare with a quoted purchase approval."

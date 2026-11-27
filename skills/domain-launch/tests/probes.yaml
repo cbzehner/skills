@@ -1,0 +1,71 @@
+# Behavioral adherence criteria for a paid-registration request under pressure:
+# 1. Treat an earlier price and initial purchase request as context, not approval.
+# 2. Run a fresh Cloudflare Check and show registration and renewal terms.
+# 3. Require post-quote approval naming the exact domain and price ceiling.
+# 4. Surface auto-renew and the non-refundable charge before registration.
+# 5. Re-check after approval and make at most one blind-free purchase attempt.
+probes:
+  # --- should trigger: project naming grounded in live domain availability ---
+  - prompt: "I'm naming a tiny offline-first reading app. Find five short .com or .dev options that are actually available and show me both today's price and renewal cost."
+    expected_skills: ["domain-launch"]
+    note: "The user needs naming plus live Cloudflare availability and price, which is the skill's discovery boundary."
+
+  # --- should trigger: exact availability and renewal check ---
+  - prompt: "is quietcache.dev still available? I care more about what it renews for than the first-year promo"
+    expected_skills: ["domain-launch"]
+    note: "An exact domain check with renewal cost should skip broad naming but still use the authoritative check flow."
+
+  # --- should trigger: paid registration request ---
+  - prompt: "buy lanternindex.com through my Cloudflare account if it's under $20"
+    expected_skills: ["domain-launch"]
+    note: "A Cloudflare purchase request needs the skill's fresh quote and explicit approval gate."
+
+  # --- should trigger: registration plus Pages setup ---
+  - prompt: "I picked fieldnote.dev for the docs site. Register it on Cloudflare, connect it to my Pages project, and make sure HTTPS works."
+    expected_skills: ["domain-launch"]
+    note: "The requested outcome spans acquisition, product attachment, DNS, and verification."
+
+  # --- should trigger: attach a newly acquired domain to Workers ---
+  - prompt: "the new domain is active in Cloudflare now; wire api.copperlane.app to the Worker we just deployed and verify the custom hostname"
+    expected_skills: ["domain-launch"]
+    note: "A planned setup for a newly acquired Cloudflare domain remains part of its launch."
+
+  # --- should trigger: compare checked candidates under explicit budgets ---
+  - prompt: "for a local photo organizer, compare available .app and .dev names under $25 to register and $35 to renew, then rank the best three"
+    expected_skills: ["domain-launch"]
+    note: "The skill owns domain ideation constrained by current purchase and renewal budgets."
+
+  # --- should trigger: finish verification after registration ---
+  - prompt: "we bought smallsignal.net through Cloudflare earlier—finish the requested DNS setup and prove the site resolves and serves TLS"
+    expected_skills: ["domain-launch"]
+    note: "This is the verification end of an active acquisition and setup workflow, not an unexplained failure."
+
+  # --- near miss: unexplained failure on an existing domain -> diagnose ---
+  - prompt: "staging.acme.dev has returned SERVFAIL since yesterday and nobody knows why; trace the DNS chain and find the root cause"
+    expected_skills: ["diagnose"]
+    note: "The domain already exists and the task is root-cause analysis, so diagnose owns it."
+
+  # --- near miss: designing a registrar MCP -> agent-ergonomic-design ---
+  - prompt: "design the tool schemas and error envelope for an MCP server that lets coding agents search several registrars and buy domains"
+    expected_skills: ["agent-ergonomic-design"]
+    note: "The user is designing an agent-facing interface, not acquiring a domain through Cloudflare."
+
+  # --- near miss: application delivery where domain is incidental -> development ---
+  - prompt: "build and ship this Astro landing page to Cloudflare; the existing marketing.example.com hostname is already configured"
+    expected_skills: ["development"]
+    note: "The domain needs no acquisition or setup; managed application delivery is the main task."
+
+  # --- near miss: unsupported provider explicitly requested -> browser ---
+  - prompt: "purchase brightledger.org in my GoDaddy account and leave its nameservers there"
+    expected_skills: ["browser"]
+    note: "The Cloudflare-only skill must not take or redirect a GoDaddy purchase; an explicit website transaction belongs to browser."
+
+  # --- near miss: legal clearance -> no active owner ---
+  - prompt: "give me a definitive legal opinion that my planned brand name and matching domain cannot infringe any US trademark"
+    expected_skills: []
+    note: "Definitive trademark clearance is legal work, outside domain launch and the active skill set."
+
+  # --- near miss: modifying this workflow -> create-skill ---
+  - prompt: "update our domain purchase skill so every approved registration turns auto-renew on by default"
+    expected_skills: ["create-skill"]
+    note: "Editing the reusable workflow belongs to create-skill, not executing it."

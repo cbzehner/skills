@@ -1,0 +1,41 @@
+# Initial routing panel: pending live cross-harness evaluation.
+probes:
+  # --- should trigger: managed Development lifecycle ---
+  - prompt: "Build saved searches in ~/work/issue-tracker. Start from the rough request, get the scope and approach approved, implement it in isolation, prove the user journey, open the PR, and monitor the deploy."
+    expected_skills: ["development"]
+    note: "Explicit end-to-end feature lifecycle with authority and delivery."
+  - prompt: "We need to fix the checkout double-charge bug properly. Take it from reproduction and agreed scope through a reviewed candidate, guarded merge, and production verification."
+    expected_skills: ["development"]
+    note: "Managed bugfix from intent through observation."
+  - prompt: "I have a fuzzy request for team notifications and I want one agent workflow to carry it all the way from requirements to deployed proof without losing what I approved."
+    expected_skills: ["development"]
+    note: "The need is lifecycle continuity, not a standalone plan."
+  - prompt: "Resume the managed export-csv work in this repo. Figure out which gate it reached from local artifacts and provider state, then continue from there."
+    expected_skills: ["development"]
+    note: "Recovery and lifecycle advancement are Development-owned."
+  - prompt: "Implement account deletion, but stop for my approval on the exact scope and plan, keep the build in its own worktree, and do not merge until the candidate evidence is current."
+    expected_skills: ["development"]
+    note: "Explicit managed authority, isolation, and Candidate gates."
+  - prompt: "Ship the new onboarding flow end to end: acceptance criteria, implementation, browser proof, multi-model final review, merge checkpoint, then bounded post-deploy checks."
+    expected_skills: ["development"]
+    note: "All lifecycle stages are requested as one managed journey."
+
+  # --- near misses: focused or unmanaged workflows ---
+  - prompt: "Turn docs/ideas/referrals.md into a PRD I can discuss next week. No implementation yet."
+    expected_skills: ["plan"]
+    note: "Standalone planning artifact, not managed execution."
+  - prompt: "The pagination fix is already on this branch. Prove it works and give me the exact commands, but don't push or open a PR."
+    expected_skills: ["validate"]
+    note: "Proof only, no lifecycle advancement."
+  - prompt: "This personal blog typo is done and tests pass; commit it directly to main for me."
+    expected_skills: ["finish-task"]
+    note: "Unmanaged guarded personal delivery."
+  - prompt: "The integration tests started failing after the rebase and I don't know why. Find the root cause."
+    expected_skills: ["diagnose"]
+    note: "Unknown failure diagnosis is the whole request."
+  - prompt: "Do a security review of PR #88 and report findings only."
+    expected_skills: ["review"]
+    note: "Focused report-only critique."
+  - prompt: "Clean up the 14 WIP commits and resolve the rebase conflict without changing behavior."
+    expected_skills: ["git"]
+    note: "History surgery is Git-owned."

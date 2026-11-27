@@ -1,0 +1,4 @@
+interface:
+  display_name: "Development"
+  short_description: "Run managed software work from intent through observation"
+  default_prompt: "Use $development to run this software change through the managed lifecycle with explicit approvals and Candidate-bound evidence."

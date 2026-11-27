@@ -1,0 +1,3 @@
+Search is discovery; Check is authority.
+A purchase request is not purchase approval.
+Read after an ambiguous mutation; never retry blind.

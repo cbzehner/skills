@@ -4,7 +4,8 @@ description: >-
   Clarify intent and turn product, feature, site, app, tool, PRD, or issue
   requests into durable planning artifacts. Use before implementation when the
   purpose, audience, workflow, constraints, acceptance criteria, or execution
-  slices are unclear.
+  slices are unclear and the user wants planning only. End-to-end managed
+  software delivery belongs to development.
 argument-hint: "[--interview|--prd|--from-prd|--from-issue|--plan-file] [source]"
 arguments:
   - request
@@ -67,6 +68,8 @@ Durability rule (all artifacts): describe modules, behaviors, and contracts — 
 
 ## Handoffs
 
+- Route end-to-end managed software work to `development`; its approved
+  Proposal, Request, and Plan remain authoritative.
 - If the intended user, purpose, or core workflow is missing, run `--interview` before routing anywhere else.
 - If a choice needs Socratic interrogation rather than an artifact, route to `counsel --interview`.
 - If terms, domain concepts, or architecture decisions are unclear, route to `domain-model update` or `domain-model audit`.

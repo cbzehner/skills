@@ -1,13 +1,14 @@
 ---
 name: validate
 description: >-
-  Prove a concrete artifact works with recorded evidence and a pass/fail
+  Prove a concrete artifact works standalone with recorded evidence and a pass/fail
   verdict before continuing or shipping — "make sure this actually works
   before I move on", "prove the fix", "is this done?". Use after
   implementation, before completion, or when checking a branch, diff, bug fix,
   UI, plan acceptance criteria, migration, release candidate, or PR without
   doing delivery. Covers TDD red/green proof, acceptance-criteria coverage,
-  and evidence bundles consumed by review and finish-task.
+  and evidence bundles consumed by review and finish-task. Candidate-bound
+  proof inside managed work belongs to development V&V.
 argument-hint: "[--from-plan path|--ui|--bugfix|--release] [target]"
 arguments:
   - request
@@ -216,6 +217,7 @@ Next:
 
 ## Handoffs
 
+- Route Candidate-bound proof for managed work to `development` V&V.
 - Route unclear intent, missing acceptance criteria, or oversized validation scope to `plan`.
 - Route UI/browser execution to `browser` when live interaction or screenshots are needed.
 - Route unexplained failing behavior to `diagnose`.
